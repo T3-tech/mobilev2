@@ -3,10 +3,16 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native';
 
 
-export default function Login() {
-    const navigation = useNavigation();
-    const entrar = () => {
+export default function Login({
+    navigation
+}) {
 
+
+    const entrar = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }]
+        })
     }
     return (
 
@@ -21,7 +27,7 @@ export default function Login() {
                     placeholderTextColor={"#fff"}>
                 </TextInput>
 
-                <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity style={styles.botao} onPress={() => entrar()}>
                     <View style={styles.btnArea}>
                         <Text style={styles.textoBotao}>
                             ENTRAR

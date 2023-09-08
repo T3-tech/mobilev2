@@ -3,11 +3,16 @@ import { StyleSheet, Text, SafeAreaView, StatusBar, Header, View } from 'react-n
 
 
 export default props => (
-    <SafeAreaView>
-        <View style={styles.header}>
-            <Text style={styles.texto}>Funcionario</Text>
-        </View>
-    </SafeAreaView>
+
+    <NavigationContainer>
+        <SafeAreaView>
+            <View style={styles.header}>
+                <Text style={styles.texto}>Funcionario</Text>
+            </View>
+        </SafeAreaView>
+
+    </NavigationContainer>
+
 )
 
 
