@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, KeyboardAvoidingView } from 'react-native';
 
 
 export default function Login({
@@ -15,29 +15,30 @@ export default function Login({
         })
     }
     return (
+        <KeyboardAvoidingView >
+            <View style={styles.container}>
+                <Image style={styles.img} source={require('../../img/image.png')} />
+                <View style={styles.containerInput}>
+                    <TextInput style={styles.inputLogin} placeholder='LOGIN'
+                        placeholderTextColor={"#000"}>
+                    </TextInput>
 
-        <View style={styles.container}>
-            <Image style={styles.img} source={require('../../img/image.png')} />
-            <View style={styles.containerInput}>
-                <TextInput style={styles.inputLogin} placeholder='LOGIN'
-                    placeholderTextColor={"#fff"}>
-                </TextInput>
+                    <TextInput style={styles.inputLogin} placeholder='SENHA'
+                        placeholderTextColor={"#000"}>
+                    </TextInput>
 
-                <TextInput style={styles.inputLogin} placeholder='SENHA'
-                    placeholderTextColor={"#fff"}>
-                </TextInput>
+                    <TouchableOpacity style={styles.botao} onPress={() => entrar()}>
+                        <View style={styles.btnArea}>
+                            <Text style={styles.textoBotao}>
+                                ENTRAR
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.botao} onPress={() => entrar()}>
-                    <View style={styles.btnArea}>
-                        <Text style={styles.textoBotao}>
-                            ENTRAR
-                        </Text>
-                    </View>
-                </TouchableOpacity>
+                </View>
 
             </View>
-
-        </View>
+        </KeyboardAvoidingView>
 
 
 
@@ -49,20 +50,20 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#222',
         alignItems: 'center',
-        justifyContent: 'space-between',
+
     },
     containerInput: {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 90
+        marginTop: 40
     },
     inputLogin: {
         borderRadius: 10,
         width: 290,
         height: 50,
         borderWidth: 2,
-        borderColor: "#fff",
+        borderColor: "#000",
         marginTop: 25,
         fontSize: 20,
         padding: 5,
@@ -74,8 +75,8 @@ const styles = StyleSheet.create({
         height: 50,
         borderWidth: 2,
         borderRadius: 25,
-        borderColor: "#fff",
-        marginTop: 20
+        borderColor: "#000",
+        marginTop: 50
 
     },
     btnArea: {
@@ -85,12 +86,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     textoBotao: {
-        color: '#fff',
+        color: '#000',
         fontSize: 18,
         fontWeight: 'bold'
     },
     img: {
-        width: 500
+        width: 400,
+        height: 350,
+
     }
 
 });

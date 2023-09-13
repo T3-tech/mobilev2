@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../pages/Home";
-import index from "../pages/Funcionario"
+import Funcionario from "../pages/Funcionario"
 const Tab = createBottomTabNavigator();
 
 export default props => (
@@ -14,8 +14,8 @@ export default props => (
 
 
         <Tab.Screen
-            name="index"
-            component={index}
+            name="Funcionario"
+            component={Funcionario}
             options={{ tabBarLabel: 'index', headerShown: false }}
         />
 
