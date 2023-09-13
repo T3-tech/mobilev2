@@ -11,7 +11,7 @@ export default function Login({
     const entrar = () => {
         navigation.reset({
             index: 0,
-            routes: [{ name: 'Home' }]
+            routes: [{ name: 'Tab' }]
         })
     }
     return (
