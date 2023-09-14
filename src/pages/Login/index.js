@@ -3,17 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, KeyboardAvoidingView } from 'react-native';
 
 
-export default function Login({
-    navigation
-}) {
+export default props => {
 
-
-    const entrar = () => {
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'Tab' }]
-        })
-    }
     return (
         <KeyboardAvoidingView >
             <View style={styles.container}>
@@ -27,7 +18,7 @@ export default function Login({
                         placeholderTextColor={"#000"}>
                     </TextInput>
 
-                    <TouchableOpacity style={styles.botao} onPress={() => entrar()}>
+                    <TouchableOpacity style={styles.botao} onPress={() => props.navigation.navigate('Tab')}>
                         <View style={styles.btnArea}>
                             <Text style={styles.textoBotao}>
                                 ENTRAR
