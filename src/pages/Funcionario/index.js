@@ -6,8 +6,8 @@ export default props => (
 
 
     <SafeAreaView>
-        <View style={styles.header}>
-            <Text style={styles.texto}>Funcionario</Text>
+        <View >
+            <Text ></Text>
         </View>
     </SafeAreaView>
 
@@ -17,14 +17,5 @@ export default props => (
 
 
 const styles = StyleSheet.create({
-    header: {
-        backgroundColor: '#000',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 50
-    },
-    texto: {
-        color: "#fff",
-        fontSize: 20
-    }
+
 })

@@ -14,11 +14,17 @@ export default props => {
                         placeholderTextColor={"#000"}>
                     </TextInput>
 
-                    <TextInput style={styles.inputLogin} placeholder='SENHA'
+                    <TextInput
+                        style={styles.inputLogin}
+                        secureTextEntry={true}
+                        placeholder='SENHA'
                         placeholderTextColor={"#000"}>
                     </TextInput>
 
-                    <TouchableOpacity style={styles.botao} onPress={() => props.navigation.navigate('Tab')}>
+                    <TouchableOpacity
+                        style={styles.botao}
+
+                        onPress={() => props.navigation.navigate('Tab')}>
                         <View style={styles.btnArea}>
                             <Text style={styles.textoBotao}>
                                 ENTRAR
@@ -47,7 +53,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 40
+        marginTop: 100
     },
     inputLogin: {
         borderRadius: 10,
@@ -83,7 +89,7 @@ const styles = StyleSheet.create({
     },
     img: {
         width: 400,
-        height: 350,
+        height: 250,
 
     }
 

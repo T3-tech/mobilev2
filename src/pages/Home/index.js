@@ -6,9 +6,9 @@ import { StyleSheet, Text, SafeAreaView, StatusBar, Header, View } from 'react-n
 export default props => (
 
     <SafeAreaView>
-        <View style={styles.header}>
-            <StatusBar auto />
-            <Text style={styles.texto}>Agendamento</Text>
+        <View >
+
+            <Text></Text>
         </View>
 
     </SafeAreaView>

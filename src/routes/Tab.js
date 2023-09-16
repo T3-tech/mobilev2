@@ -8,7 +8,7 @@ export default props => (
         <Tab.Screen
             name="Home"
             component={Home}
-            options={{ tabBarLabel: 'Home', headerShown: false }}
+            options={{ tabBarLabel: 'Home' }}
 
         />
 
@@ -16,7 +16,7 @@ export default props => (
         <Tab.Screen
             name="Funcionario"
             component={Funcionario}
-            options={{ tabBarLabel: 'index', headerShown: false }}
+            options={{ tabBarLabel: 'index' }}
         />
 
     </Tab.Navigator>
