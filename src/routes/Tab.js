@@ -10,7 +10,12 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 
 export default (props) => (
-    <Tab.Navigator>
+    <Tab.Navigator
+        screenOptions={{
+            tabBarActiveTintColor: "black",
+            tabBarInactiveTintColor: "gray",
+        }}
+    >
         <Tab.Screen
             name="ListarAgendamento"
             component={ListarAgendamento}
