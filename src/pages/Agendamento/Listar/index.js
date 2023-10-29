@@ -1,18 +1,18 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { Button } from "@rneui/base";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
     StyleSheet,
     Text,
     ActivityIndicator,
     FlatList,
     View,
+    Button
 } from "react-native";
 
 export default (props) => {
+    const [isLoading, setIsLoading] = useState(true);
     const [agendamento, setAgendamento] = useState([]);
-    const [isLoading, setLoading] = useState(true);
+
 
     const url = "http://localhost:7096/api/Agendamentos";
 
@@ -33,7 +33,7 @@ export default (props) => {
                 console.log(error)
             );
         } finally {
-            setLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -49,14 +49,14 @@ export default (props) => {
                 ) : (
                     <FlatList
                         data={agendamento}
-                        keyExtractor={({ id }, index) => id}
+                        keyExtractor={({ id }) => id}
                         renderItem={({ item }) => (
                             <Text>
                                 {item.profissionalNome}
-                                {item.clienteNome}
-                                {item.servicoNome}
-                                {item.data}
-                                {item.statusNome}
+                                - {item.clienteNome}
+                                - {item.servicoNome}
+                                - {item.data}
+                                - {item.statusNome}
                             </Text>
                         )}
                     />
