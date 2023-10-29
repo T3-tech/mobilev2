@@ -1,4 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { ListItem } from "@rneui/themed";
 import { useEffect, useState } from "react";
 import {
     StyleSheet,
@@ -6,31 +7,29 @@ import {
     ActivityIndicator,
     FlatList,
     View,
-    Button
+    Button,
+    TextInput,
+    Touchable,
+    TouchableOpacity
 } from "react-native";
 
 export default (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [agendamento, setAgendamento] = useState([]);
+    const [statusFilter, setStatusFilter] = useState("");
+    const [dateFilter, setDateFilter] = useState("");
 
-
-    const url = "http://localhost:7096/api/Agendamentos";
+    const url = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos";
 
     const getAgendamento = async () => {
         try {
             const response = await fetch(url);
-            console.log(
-                "🚀 ~ file: index.js:23 ~ getAgendamento ~ response",
-                response
-            );
-
             const json = await response.json();
-            console.log("🚀 ~ file: index.js:28 ~ getAgendamento ~ json", json);
             setAgendamento(json);
+
         } catch (error) {
-            console.log(
+            console.error(
                 "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):",
-                console.log(error)
             );
         } finally {
             setIsLoading(false);
@@ -41,27 +40,64 @@ export default (props) => {
         getAgendamento();
     }, []);
 
+    const filteredAgendamento = agendamento.filter((item) => {
+        if (statusFilter && dateFilter) {
+            return (
+                item.statusNome.includes(statusFilter) &&
+                item.data.includes(dateFilter)
+            );
+        } else if (statusFilter) {
+            return item.statusNome.includes(statusFilter);
+        } else if (dateFilter) {
+            return item.data.includes(dateFilter);
+        } else {
+            return true;
+        }
+    });
+
     return (
         <>
-            <View>
-                {isLoading ? (
-                    <ActivityIndicator size={80} />
-                ) : (
-                    <FlatList
-                        data={agendamento}
-                        keyExtractor={({ id }) => id}
-                        renderItem={({ item }) => (
-                            <Text>
-                                {item.profissionalNome}
-                                - {item.clienteNome}
-                                - {item.servicoNome}
-                                - {item.data}
-                                - {item.statusNome}
-                            </Text>
-                        )}
-                    />
-                )}
-                <Button title={"Atualizar"} onPress={() => getAgendamento()} />
+            <View style={styles.agendamentoContainer}>
+                    {isLoading ? (
+                        <ActivityIndicator size={50} color={'black'}/>
+                    ) : (
+                        
+                        <View>
+                            <View style={styles.filterContainer}>
+                                <TextInput
+                                    style={styles.filterInput}
+                                    placeholder="Filtrar por status"
+                                    value={statusFilter}
+                                    onChangeText={(text) => setStatusFilter(text)}
+                                />
+                                <TextInput
+                                    style={styles.filterInput}
+                                    placeholder="Filtrar por data"
+                                    value={dateFilter}
+                                    onChangeText={(text) => setDateFilter(text)}
+                                />
+                            </View>
+                            <View style={styles.reloadBotton}>
+                                <TouchableOpacity onPress={() => getAgendamento()}> 
+                                    <Text style={{color: 'white'}}>Atualizar</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <FlatList
+                                data={filteredAgendamento}
+                                keyExtractor={({ id }) => id}
+                                renderItem={({ item }) => (
+                                    <View  style={styles.listAgendamento}>
+                                        <Text>
+                                            {item.statusNome} - {item.servicoNome}
+                                        </Text>
+                                        <Text>
+                                            {item.clienteNome} - {item.data}
+                                        </Text>
+                                    </View>
+                                )}
+                            /> 
+                        </View>                    
+                    )}
             </View>
         </>
     );
@@ -78,4 +114,39 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 20,
     },
+    agendamentoContainer:{
+        flex: 1,
+        justifyContent: "center",   
+        alignItems: "center", 
+            
+    },
+    filterContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        margin: 10,
+    },
+    filterInput: {
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 5,
+        padding: 5,
+        flex: 1,
+        marginRight: 3,
+        marginLeft: 3,
+        marginTop: 10,
+    },
+    listAgendamento: {
+        padding: 20,
+        borderBottomWidth: 2,
+        borderBottomColor: "#ccc",
+    },
+    reloadBotton: {
+        margin: 10,
+        width: 300,
+        height: 30,
+        backgroundColor: "#6E6E6E",
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
+    }
 });
