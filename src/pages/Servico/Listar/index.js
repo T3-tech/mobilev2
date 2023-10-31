@@ -31,7 +31,7 @@ export default (pros) => {
 
     const deteleServico = async (id) => {
         try {
-            const response = await fetch(`${url}/${id}`, {
+            await fetch(`${url}/${id}`, {
                 method: "DELETE",
             });
         } catch (error) {
