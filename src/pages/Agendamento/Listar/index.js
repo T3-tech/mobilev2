@@ -58,46 +58,46 @@ export default (props) => {
     return (
         <>
             <View style={styles.agendamentoContainer}>
-                    {isLoading ? (
-                        <ActivityIndicator size={50} color={'black'}/>
-                    ) : (
-                        
-                        <View>
-                            <View style={styles.filterContainer}>
-                                <TextInput
-                                    style={styles.filterInput}
-                                    placeholder="Filtrar por status"
-                                    value={statusFilter}
-                                    onChangeText={(text) => setStatusFilter(text)}
-                                />
-                                <TextInput
-                                    style={styles.filterInput}
-                                    placeholder="Filtrar por data"
-                                    value={dateFilter}
-                                    onChangeText={(text) => setDateFilter(text)}
-                                />
-                            </View>
-                            <View style={styles.reloadBotton}>
-                                <TouchableOpacity onPress={() => getAgendamento()}> 
-                                    <Text style={{color: 'white'}}>Atualizar</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <FlatList
-                                data={filteredAgendamento}
-                                keyExtractor={({ id }) => id}
-                                renderItem={({ item }) => (
-                                    <View  style={styles.listAgendamento}>
-                                        <Text>
-                                            {item.statusNome} - {item.servicoNome}
-                                        </Text>
-                                        <Text>
-                                            {item.clienteNome} - {item.data}
-                                        </Text>
-                                    </View>
-                                )}
-                            /> 
-                        </View>                    
-                    )}
+                {isLoading ? (
+                    <ActivityIndicator size={50} color={'black'} />
+                ) : (
+
+                    <View>
+                        <View style={styles.filterContainer}>
+                            <TextInput
+                                style={styles.filterInput}
+                                placeholder="Filtrar por status"
+                                value={statusFilter}
+                                onChangeText={(text) => setStatusFilter(text)}
+                            />
+                            <TextInput
+                                style={styles.filterInput}
+                                placeholder="Filtrar por data"
+                                value={dateFilter}
+                                onChangeText={(text) => setDateFilter(text)}
+                            />
+                        </View>
+                        <View style={styles.reloadBotton}>
+                            <TouchableOpacity onPress={() => getAgendamento()}>
+                                <Text style={{ color: 'white' }}>Atualizar</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <FlatList
+                            data={filteredAgendamento}
+                            keyExtractor={({ id }) => id}
+                            renderItem={({ item }) => (
+                                <View style={styles.listAgendamento}>
+                                    <Text>
+                                        {item.statusNome} - {item.servicoNome}
+                                    </Text>
+                                    <Text>
+                                        {item.clienteNome} - {item.data}
+                                    </Text>
+                                </View>
+                            )}
+                        />
+                    </View>
+                )}
             </View>
         </>
     );
@@ -114,11 +114,11 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 20,
     },
-    agendamentoContainer:{
+    agendamentoContainer: {
         flex: 1,
-        justifyContent: "center",   
-        alignItems: "center", 
-            
+        justifyContent: "center",
+        alignItems: "center",
+
     },
     filterContainer: {
         flexDirection: "row",
