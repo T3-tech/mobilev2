@@ -5,11 +5,12 @@ import {
     FlatList,
     StyleSheet,
     TouchableOpacity,
+    Alert,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default (pros) => {
+export default (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [servico, setServico] = useState([]);
     const url = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Servicos";
@@ -80,16 +81,16 @@ export default (pros) => {
                                                 size={25}
                                                 color={"blue"}
                                                 onPress={() =>
-                                                    pros.navigation.navigate(
+                                                    props.navigation.navigate(
                                                         "EditarServico",
                                                         {
                                                             id: item.id,
                                                             nome: item.nome,
                                                             valor: item.valor,
-                                                            nomeProfissional:
-                                                                item.nomeProfissional,
                                                             idProfissional:
                                                                 item.idProfissional,
+                                                            navigator:
+                                                                props.navigation,
                                                         }
                                                     )
                                                 }
@@ -100,7 +101,28 @@ export default (pros) => {
                                                 size={25}
                                                 color={"red"}
                                                 onPress={() =>
-                                                    deteleServico(item.id)
+                                                    Alert.alert(
+                                                        "Deletar Serviço",
+                                                        "Deseja deletar o serviço?",
+                                                        [
+                                                            {
+                                                                text: "Não",
+                                                                onPress: () =>
+                                                                    console.log(
+                                                                        "Cancel Pressed"
+                                                                    ),
+                                                                style: "cancel",
+                                                            },
+                                                            {
+                                                                text: "Sim",
+                                                                onPress: () =>
+                                                                    deteleServico(
+                                                                        item.id
+                                                                    ),
+                                                            },
+                                                        ],
+                                                        { cancelable: false }
+                                                    )
                                                 }
                                             />
                                         </View>

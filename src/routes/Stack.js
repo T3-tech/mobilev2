@@ -8,7 +8,6 @@ import CadastraServico from "../pages/Servico/Cadastrar";
 import Percentual from "../pages/Faturamento/Percentual";
 import CadastraFuncionario from "../pages/Funcionario/Cadastrar";
 import EditarServico from "../pages/Servico/Editar";
-
 const navegacaoStack = createNativeStackNavigator();
 
 export default function Stack() {
