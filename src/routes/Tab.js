@@ -6,6 +6,7 @@ import BotaoCriar from "../components/BotaoCriar";
 import ListaFaturamento from "../pages/Faturamento/Listar";
 import ListaFuncionario from "../pages/Funcionario/Listar";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import ListaCliente from "../pages/Cliente/Listar";
 
 const Tab = createBottomTabNavigator();
 
@@ -140,5 +141,37 @@ export default (props) => (
                 };
             }}
         />
+
+        <Tab.Screen
+                    name="ListaCliente"
+                    component={ListaCliente}
+                    options={({ navigation }) => {
+                        return {
+                            title: "Cliente",
+                            tabBarIcon: ({ color, size, focused }) => {
+                                if (focused) {
+                                    return (
+                                        <Ionicons
+                                            name="person-add"
+                                            size={size}
+                                            color={color}
+                                        />
+                                    );
+                                }
+
+                                return (
+                                    <Ionicons
+                                        name="person-add-outline"
+                                        size={size}
+                                        color={color}
+                                    />
+                                );
+                            },
+                            headerRight: () => BotaoCriar("CadastrarCliente", navigation),
+                        };
+                    }}
+        />
+
+
     </Tab.Navigator>
 );

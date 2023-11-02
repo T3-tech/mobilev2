@@ -9,6 +9,7 @@ import Percentual from "../pages/Faturamento/Percentual";
 import CadastraFuncionario from "../pages/Funcionario/Cadastrar";
 import EditarServico from "../pages/Servico/Editar";
 import EditarProfissional from "../pages/Funcionario/Editar"
+import CadastrarCliente from "../pages/Cliente/Cadastrar";
 
 const navegacaoStack = createNativeStackNavigator();
 
@@ -55,6 +56,12 @@ export default function Stack() {
                     name="EditarProfissional"
                     component={EditarProfissional}
                     options={{ title: "Editar funcionário" }}
+                />
+
+                <navegacaoStack.Screen
+                    name="CadastrarCliente"
+                    component={CadastrarCliente}
+                    options={{ headerShown: false }}
                 />
 
             </navegacaoStack.Navigator>
