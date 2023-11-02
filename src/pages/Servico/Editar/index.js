@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
 import { useEffect, useState } from "react";
 import SelectDropdown from "react-native-select-dropdown";
-import { TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default ({ route }) => {
     const { nome, id, valor, idProfissional, navigator } = route.params;
@@ -32,7 +32,7 @@ export default ({ route }) => {
         profissionalId: idProfissionalServico,
     });
 
-    const editAgendamento = async (json) => {
+    const editAgendamento = async () => {
         try {
             responsePut = await fetch(
                 `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Servicos/${id}`,
@@ -110,20 +110,12 @@ export default ({ route }) => {
             </View>
 
             <View style={styles.viewButton}>
-                <TouchableOpacity
-                    style={styles.buttonSalvar}
-                    onPress={() => editAgendamento(json)}
-                >
-                    <Text
-                        style={{
-                            color: "white",
-                            padding: 10,
-                            borderRadius: 10,
-                        }}
-                    >
-                        Salvar
-                    </Text>
-                </TouchableOpacity>
+                <Ionicons
+                    name="checkmark-circle-outline"
+                    size={50}
+                    color={"green"}
+                    onPress={() => editAgendamento()}
+                />
             </View>
         </>
     );
@@ -141,23 +133,17 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
-    buttonSalvar: {
-        backgroundColor: "green",
-        borderRadius: 10,
-        padding: 10,
-        width: 100,
-        alignItems: "center",
-        justifyContent: "center",
-    },
 
     viewInput: {
-        height: 40,
-        width: 250,
-        borderColor: "gray",
-        borderWidth: 1,
-        borderRadius: 10,
-        padding: 10,
         margin: 10,
+        padding: 10,
+        width: 350,
+        height: 40,
+        backgroundColor: "#6E6E6E",
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#FFFFFF",
     },
 
     textoInput: {
