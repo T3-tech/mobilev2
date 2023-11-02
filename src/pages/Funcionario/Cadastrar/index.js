@@ -115,13 +115,14 @@ export default (pros) => {
 const styles = StyleSheet.create({
 
     inputStyle: {
-        borderRadius: 20,
+        margin: 10,
+        padding: 10,
         width: 350,
         height: 40,
-        marginTop: 25,
-        fontSize: 20,
-        padding: 5,
-        backgroundColor: "#6E6E6E"
+        backgroundColor: "#6E6E6E",
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
 
 
     },
