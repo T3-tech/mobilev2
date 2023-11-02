@@ -9,6 +9,8 @@ export default ({ route }) => {
     const [valorSerivo, setValor] = useState(valor);
     const [idProfissionalServico, setIdProfissional] = useState(idProfissional);
     const [profissional, setProfissional] = useState([]);
+    const NO_CONTENT = 204;
+    var responsePut;
 
     const getProfissional = async () => {
         try {
@@ -24,20 +26,22 @@ export default ({ route }) => {
         }
     };
 
-    const editAgendamento = async () => {
+    json = JSON.stringify({
+        nome: nomeServico,
+        valor: parseFloat(valorSerivo),
+        profissionalId: idProfissionalServico,
+    });
+
+    const editAgendamento = async (json) => {
         try {
-            await fetch(
+            responsePut = await fetch(
                 `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Servicos/${id}`,
                 {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                        nome: nomeServico,
-                        valor: parseFloat(valorSerivo),
-                        profissionalId: idProfissionalServico,
-                    }),
+                    body: json,
                 }
             );
         } catch (error) {
@@ -45,8 +49,15 @@ export default ({ route }) => {
                 "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):"
             );
         } finally {
-            Alert.alert("Serviço editado com sucesso!");
-            navigator.navigate("ListaServico");
+            if (responsePut.status !== NO_CONTENT) {
+                Alert.alert(
+                    "Erro ao editar serviço!",
+                    "Nenhum campo pode estar vazio!"
+                );
+            } else {
+                Alert.alert("Serviço editado com sucesso!");
+                navigator.navigate("ListaServico");
+            }
         }
     };
 
@@ -81,6 +92,7 @@ export default ({ route }) => {
                 />
                 <Text style={styles.textoInput}>Valor do serviço</Text>
                 <TextInput
+                    keyboardType="numeric"
                     style={styles.viewInput}
                     placeholder="Valor do serviço"
                     onChangeText={setValor}
@@ -100,7 +112,7 @@ export default ({ route }) => {
             <View style={styles.viewButton}>
                 <TouchableOpacity
                     style={styles.buttonSalvar}
-                    onPress={() => editAgendamento()}
+                    onPress={() => editAgendamento(json)}
                 >
                     <Text
                         style={{
