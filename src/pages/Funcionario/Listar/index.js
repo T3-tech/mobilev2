@@ -19,7 +19,7 @@ export default (pros) => {
             const response = await fetch(URL);
             const json = await response.json();
             setProfissional(json);
-            console.log(json)
+
 
         } catch (error) {
             console.error(
@@ -82,11 +82,7 @@ export default (pros) => {
                                                 name="create-outline"
                                                 size={25}
                                                 color={"blue"}
-                                                onPress={() =>
-                                                    pros.navigation.navigate(
 
-                                                    )
-                                                }
 
                                             />
                                             <Ionicons

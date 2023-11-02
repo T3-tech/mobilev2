@@ -1,6 +1,6 @@
 import { Text, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
-
+import { Ionicons } from "@expo/vector-icons";
 
 export default (pros) => {
     const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais";
@@ -16,6 +16,12 @@ export default (pros) => {
     }
     const attTelefone = (text) => {
         setTelefone(text);
+    }
+
+    function limpar() {
+        setNome('');
+        setCpf('');
+        setTelefone('');
     }
 
     function enviar() {
@@ -46,9 +52,7 @@ export default (pros) => {
                 "🚀 ~ file: index.js:46 ~ postProfissional ~ console.log(error):",
             );
         } finally {
-            setNome();
-            setCpf();
-            setTelefone();
+            limpar();
         }
 
 
@@ -58,38 +62,49 @@ export default (pros) => {
     }
 
     return (
-        <View style={styles.container}>
-            <TextInput style={styles.inputStyle}
-                placeholder='Nome'
-                value={nome}
-                onChangeText={attNome}
-                placeholderTextColor={"#000"}>
-            </TextInput>
+        <View >
+            <View style={styles.containerInterno}>
+                <TextInput style={styles.inputStyle}
+                    placeholder='Nome'
+                    value={nome}
+                    onChangeText={attNome}
+                    placeholderTextColor={"#000"}>
+                </TextInput>
 
-            <TextInput style={styles.inputStyle}
-                placeholder="Cpf"
-                value={cpf}
-                onChangeText={attCpf}
-                placeholderTextColor={"#000"}>
-            </TextInput>
+                <TextInput style={styles.inputStyle}
+                    placeholder="Cpf"
+                    value={cpf}
+                    onChangeText={attCpf}
+                    placeholderTextColor={"#000"}>
+                </TextInput>
 
-            <TextInput style={styles.inputStyle}
-                placeholder="Telefone"
-                value={telefone}
-                onChangeText={attTelefone}
-                placeholderTextColor={"#000"}>
-            </TextInput>
+                <TextInput style={styles.inputStyle}
+                    placeholder="Telefone"
+                    value={telefone}
+                    onChangeText={attTelefone}
+                    placeholderTextColor={"#000"}>
+                </TextInput>
+            </View>
 
-
-            <TouchableOpacity onPress={() => enviar()}
-
-                style={styles.botao}>
-                <View style={styles.btnArea}>
-                    <Text style={styles.textoBotao}>
-                        Enviar
-                    </Text>
+            <View style={styles.viewIcon}>
+                <View>
+                    <Ionicons
+                        name="trash-outline"
+                        size={25}
+                        color={"black"}
+                        onPress={() => limpar()}
+                    />
                 </View>
-            </TouchableOpacity>
+                <View>
+                    <Ionicons
+                        name="checkmark-circle-outline"
+                        size={25}
+                        color={"black"}
+                        onPress={() => enviar()}
+                    />
+                </View>
+            </View>
+
         </View>
     );
 
@@ -112,8 +127,11 @@ const styles = StyleSheet.create({
 
 
     },
-    container: {
-        alignItems: "center"
+
+    containerInterno: {
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 50
     },
     botao: {
         width: 230,
@@ -124,17 +142,12 @@ const styles = StyleSheet.create({
         marginTop: 50
 
     },
-    textoBotao: {
-        color: '#000',
-        fontSize: 18,
-        fontWeight: 'bold'
-    },
-    btnArea: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
+    viewIcon: {
+        marginTop: 20,
+        flexDirection: "row",
+        justifyContent: "space-around",
     }
+
 
 
 });
