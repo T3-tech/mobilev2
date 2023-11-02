@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     StyleSheet
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default (pros) => {
     const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais";
@@ -22,10 +23,24 @@ export default (pros) => {
 
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):",
+                "🚀 ~ file: index.js:26 ~ getProfissional ~ console.log(error):",
             );
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const deteleProfissional = async (id) => {
+        try {
+            await fetch(`${URL}/${id}`, {
+                method: "DELETE",
+            });
+        } catch (error) {
+            console.error(
+                "🚀 ~ file: index.js:40 ~ getProfissional ~ console.log(error):"
+            );
+        } finally {
+            getProfissional();
         }
     };
 
@@ -49,19 +64,55 @@ export default (pros) => {
                             keyExtractor={({ id }) => id}
                             renderItem={({ item }) => (
                                 <View style={styles.listaProfissional}>
-                                    <Text style={styles.textStyle}>
-                                        Nome: {item.nome}
-                                    </Text>
-                                    <Text style={styles.textStyle}>
-                                        Telefone: {item.telefone}
-                                    </Text>
-                                    <Text style={styles.textStyle}>
-                                        CPF: {item.cpf}
-                                    </Text>
+                                    <View style={styles.icon}>
+                                        <View >
+                                            <Text style={styles.textStyle}>
+                                                Nome: {item.nome}
+                                            </Text>
+                                            <Text style={styles.textStyle}>
+                                                Telefone: {item.telefone}
+                                            </Text>
+                                            <Text style={styles.textStyle}>
+                                                CPF: {item.cpf}
+                                            </Text>
+
+                                        </View>
+                                        <View>
+                                            <Ionicons
+                                                name="create-outline"
+                                                size={25}
+                                                color={"blue"}
+
+
+                                            />
+                                            <Ionicons
+                                                name="trash-outline"
+                                                size={25}
+                                                color={"red"}
+                                                onPress={() =>
+                                                    deteleProfissional(item.id)
+                                                }
+                                            />
+                                        </View>
+                                    </View>
 
                                 </View>
                             )}
                         />
+
+                        <FlatList
+                            data={profissional.listaServico}
+                            keyExtractor={({ id }) => id}
+                            renderItem={({ item }) => (
+                                <View>
+                                    <Text style={styles.textStyle}>
+                                        {item.nomeSevico}
+                                    </Text>
+                                </View>
+                            )}
+                        >
+
+                        </FlatList>
                     </View>
 
                 )}
@@ -85,27 +136,35 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     listaProfissional: {
-        padding: 10,
+        width: 350,
+        padding: 20,
         borderBottomWidth: 2,
-        borderBottomColor: "#ccc",
-        width: 500
+        borderBottomColor: "#ccc"
 
     },
     textStyle: {
         color: '#000',
-        fontSize: 18,
-
-
+        fontSize: 15
     },
     profissionalContainer: {
 
         justifyContent: "center",
-        alignItems: "center",
-
-
+        alignItems: "center"
     },
     profissionalContainerInterno: {
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
+    },
+    listaProfissionalInterna: {
+        flexDirection: "row",
+        justifyContent: "space-evenly"
+    },
+
+    icon: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+
     }
+
+
 });
