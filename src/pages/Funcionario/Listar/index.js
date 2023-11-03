@@ -100,19 +100,7 @@ export default (pros) => {
                             )}
                         />
 
-                        <FlatList
-                            data={profissional.listaServico}
-                            keyExtractor={({ id }) => id}
-                            renderItem={({ item }) => (
-                                <View>
-                                    <Text style={styles.textStyle}>
-                                        {item.nomeSevico}
-                                    </Text>
-                                </View>
-                            )}
-                        >
 
-                        </FlatList>
                     </View>
 
                 )}
