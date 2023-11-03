@@ -26,7 +26,7 @@ export default ({ route }) => {
     }, []);
     return (
         <SafeAreaView>
-            <Text>Nome: {profissional.nome}</Text>
+            <Text>NOME: {profissional.nome}</Text>
             <Text>CPF: {profissional.cpf}</Text>
             <Text>TELEFONE: {profissional.telefone}</Text>
             <Text>SERVIÇOS PRESTADOS</Text>
