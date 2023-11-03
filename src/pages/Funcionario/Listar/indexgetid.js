@@ -1,4 +1,4 @@
-import { Text, FlatList, View } from "react-native";
+import { Text, FlatList, View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 
@@ -7,37 +7,65 @@ export default ({ route }) => {
     const [profissional, setprofissional] = useState([]);
 
     const getProfissionalPorId = async () => {
-        try {
-            const response = await fetch(
-                `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais/${id}`
-            );
-            const json = await response.json();
-            setprofissional(json);
+
+        const response = await fetch(
+            `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais/${id}`
+        );
+        const json = await response.json();
+        setprofissional(json);
 
 
-        } catch (error) {
-            console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):"
-            );
-        }
+
     }
     useEffect(() => {
         getProfissionalPorId();
     }, []);
     return (
-        <SafeAreaView>
-            <Text>NOME: {profissional.nome}</Text>
-            <Text>CPF: {profissional.cpf}</Text>
-            <Text>TELEFONE: {profissional.telefone}</Text>
-            <Text>SERVIÇOS PRESTADOS</Text>
-            <FlatList data={profissional.listaServico}
-                keyExtractor={({ idServico }) => idServico}
-                renderItem={({ item }) => (
-                    <Text>{item.nomeSevico}</Text>
-                )}
-            >
+        <SafeAreaView style={styles.containerExterno}>
+            <Text style={styles.titulo}>Informações detalhadas</Text>
+            <View style={styles.container}>
+                <View style={styles.containerInfo}>
+                    <Text style={styles.textStyle}>NOME: {profissional.nome}</Text>
+                    <Text style={styles.textStyle}>CPF: {profissional.cpf}</Text>
+                    <Text style={styles.textStyle}>TELEFONE: {profissional.telefone}</Text>
+                    <Text style={styles.textStyle}>SERVIÇOS PRESTADOS</Text>
+                    <FlatList data={profissional.listaServico}
+                        keyExtractor={({ idServico }) => idServico}
+                        renderItem={({ item }) => (
+                            <Text style={styles.textStyle}>{item.nomeSevico}</Text>
+                        )}
+                    >
 
-            </FlatList>
+                    </FlatList>
+                </View>
+            </View>
         </SafeAreaView >
     );
 };
+const styles = StyleSheet.create({
+    containerExterno: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    container: {
+        justifyContent: "center",
+        backgroundColor: "#6E6E6E",
+        height: 230,
+        borderRadius: 10,
+        width: 350,
+
+    },
+    containerInfo: {
+        alignItems: "center",
+    },
+    textStyle: {
+        color: "#fff",
+        fontSize: 20,
+    },
+    titulo: {
+        fontSize: 25
+    }
+
+
+});
