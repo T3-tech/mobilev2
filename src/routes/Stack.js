@@ -10,7 +10,7 @@ import CadastraFuncionario from "../pages/Funcionario/Cadastrar";
 import EditarServico from "../pages/Servico/Editar";
 import EditarProfissional from "../pages/Funcionario/Editar";
 import CadastrarCliente from "../pages/Cliente/Cadastrar";
-
+import ListarPorId from "../pages/Funcionario/Listar/indexgetid"
 const navegacaoStack = createNativeStackNavigator();
 
 export default function Stack() {
@@ -61,6 +61,11 @@ export default function Stack() {
                 <navegacaoStack.Screen
                     name="CadastrarCliente"
                     component={CadastrarCliente}
+                    options={{ headerShown: false }}
+                />
+                <navegacaoStack.Screen
+                    name="ListarPorId"
+                    component={ListarPorId}
                     options={{ headerShown: false }}
                 />
             </navegacaoStack.Navigator>
