@@ -68,21 +68,21 @@ export default (pros) => {
                     placeholder='Nome'
                     value={nome}
                     onChangeText={attNome}
-                    placeholderTextColor={"#000"}>
+                    placeholderTextColor={"#fff"}>
                 </TextInput>
 
                 <TextInput style={styles.inputStyle}
                     placeholder="Cpf"
                     value={cpf}
                     onChangeText={attCpf}
-                    placeholderTextColor={"#000"}>
+                    placeholderTextColor={"#fff"}>
                 </TextInput>
 
                 <TextInput style={styles.inputStyle}
                     placeholder="Telefone"
                     value={telefone}
                     onChangeText={attTelefone}
-                    placeholderTextColor={"#000"}>
+                    placeholderTextColor={"#fff"}>
                 </TextInput>
             </View>
 
@@ -91,7 +91,7 @@ export default (pros) => {
                     <Ionicons
                         name="trash-outline"
                         size={25}
-                        color={"black"}
+                        color={"red"}
                         onPress={() => limpar()}
                     />
                 </View>
@@ -99,7 +99,7 @@ export default (pros) => {
                     <Ionicons
                         name="checkmark-circle-outline"
                         size={25}
-                        color={"black"}
+                        color={"green"}
                         onPress={() => enviar()}
                     />
                 </View>
@@ -115,15 +115,14 @@ export default (pros) => {
 const styles = StyleSheet.create({
 
     inputStyle: {
-        borderRadius: 20,
-        width: 200,
+        margin: 10,
+        padding: 10,
+        width: 350,
         height: 40,
-        borderWidth: 2,
-        borderColor: "#000",
-        marginTop: 25,
-        fontSize: 20,
-        padding: 5,
-
+        backgroundColor: "#6E6E6E",
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
 
 
     },
