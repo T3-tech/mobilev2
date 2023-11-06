@@ -10,12 +10,9 @@ import CadastraFuncionario from "../pages/Funcionario/Cadastrar";
 import EditarServico from "../pages/Servico/Editar";
 import EditarProfissional from "../pages/Funcionario/Editar";
 import CadastrarCliente from "../pages/Cliente/Cadastrar";
-<<<<<<< HEAD
 import EditarCliente from "../pages/Cliente/Editar";
 
-=======
 import ListarPorId from "../pages/Funcionario/Listar/indexgetid"
->>>>>>> 3345c3cd97e2de4f92faabfb37c5c4ade41c65c3
 const navegacaoStack = createNativeStackNavigator();
 
 export default function Stack() {
