@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, FlatList, TouchableOpacity, StyleSheet} from "react-native";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, Text, ActivityIndicator, FlatList, TouchableOpacity, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default (props) => {
-    const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Clientes"; // URL dos Clientesss
+    const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Clientes";
     const [isLoading, setIsLoading] = useState(true);
     const [clientes, setClientes] = useState([]);
 
@@ -12,9 +12,11 @@ export default (props) => {
             const response = await fetch(URL);
             const json = await response.json();
             setClientes(json);
-        } catch (error) {
-            console.error("moiô óia o erro mané:", error);
-        } finally {
+        } 
+        catch (error) {
+            console.error("Erro:", error);
+        } 
+        finally {
             setIsLoading(false);
         }
     };
@@ -23,104 +25,124 @@ export default (props) => {
         getClientes();
     }, []);
 
+    const deleteCliente = async (id) => {
+        try {
+            await fetch(`${URL}/${id}`, {
+                method: "DELETE",
+            });
+        } 
+        catch (error) {
+            console.error("Erro:", error);
+        } 
+        finally {
+            getClientes();
+        }
+    };
+
     return (
-        <View style={styles.clienteContainer}>
+        <View style={styles.profissionalContainer}>
             {isLoading ? (
                 <ActivityIndicator size="large" color="black" />
             ) : (
-                <View style={styles.clienteContainerInterno}>
-                    <TouchableOpacity onPress={() => getClientes()} style={styles.reloadButton}>
-                        <Text style={styles.reloadButtonText}>Atualizar</Text>
-                    </TouchableOpacity>
+                <View style={styles.profissionalContainerInterno}>
+                    <View>
+                        <TouchableOpacity onPress={() => getClientes()} style={styles.reloadButton}>
+                            <Text style={{ color: 'white' }}>Atualizar</Text>
+                        </TouchableOpacity>
+                    </View>
                     <FlatList
                         data={clientes}
                         keyExtractor={({ id }) => id.toString()}
                         renderItem={({ item }) => (
-                        <View style={styles.listaCliente}>
-                            <View style={styles.infoContainer}>
-                                <Text style={styles.label}>Nome:</Text>
-                                <Text style={styles.value}>{item.nome}</Text>
-                            </View>
-                            <View style={styles.iconContainer}>
-                                <Ionicons
-                                name="create-outline"
-                                size={25}
-                                color={"blue"}
-                                onPress={() =>
-                                    pros.navigation.navigate("EditarCliente", {
-                                        id: item.id,
-                                        nome: item.nome,
-                                        telefone: item.telefone,
-                                        cpf: item.cpf,
-                                    })
-                                }
-                                />
-                                <Ionicons
-                                    marginTop
-                                    name="trash-outline"
-                                    size={25}
-                                    color={"red"}
-                                    onPress={() => deteleCliente(item.id)}
-                                />
+                            <View style={styles.listaProfissional}>
+                                <View style={styles.icon}>
+                                    
+                                    <View>
+                                        <Text style={styles.textStyle}>
+                                            Nome: {item.nome}
+                                        </Text>
+
+                                        <Text style={styles.textStyle}>
+                                            Telefone: {item.telefone}
+                                        </Text>
+
+                                        <Text style={styles.textStyle}>
+                                            CPF: {item.cpf}
+                                        </Text>
+                                    </View>
+
+                                    <View>
+                                        <Ionicons
+                                                name="create-outline"
+                                                size={25}
+                                                color={"blue"}
+                                                onPress={() =>
+                                                props.navigation.navigate(
+                                                    "EditarCliente",
+                                                    {
+                                                        id: item.id,
+                                                        nome: item.nome,
+                                                        telefone: item.telefone,
+                                                        cpf: item.cpf,
+                                                    }
+                                                )
+                                            }
+                                        />
+
+                                        <Ionicons
+                                            name="trash-outline"
+                                            size={25}
+                                            color={"red"}
+                                            onPress={() => deleteCliente(item.id)}
+                                        />
+                                    </View>
+
                                 </View>
-                                    <View style={styles.infoContainer}>
-                                        <Text style={styles.label}>Telefone:</Text>
-                                        <Text style={styles.value}>{item.telefone}</Text>
-                                    </View>
-                                    <View style={styles.infoContainer}>
-                                        <Text style={styles.label}>CPF:</Text>
-                                        <Text style={styles.value}>{item.cpf}</Text>
-                                    </View>
                             </View>
                         )}
                     />
-                    </View>
+                </View>
             )}
         </View>
     );
 };
 
+
 const styles = StyleSheet.create({
-    clienteContainer: {
-        flex: 1,
+    profissionalContainer: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    
+    profissionalContainerInterno: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    
+    reloadButton: {
+        margin: 10,
+        width: 300,
+        height: 30,
+        backgroundColor: "#6E6E6E",
+        borderRadius: 5,
         justifyContent: "center",
         alignItems: "center",
     },
     
-    clienteContainerInterno: {
-        flex: 1,
-        alignItems: "center",
+    listaProfissional: {
+        width: 350,
         padding: 20,
-    },
-    
-    reloadButton: {
-        backgroundColor: "#6E6E6E",
-        padding: 10,
-        borderRadius: 5,
-        marginVertical: 10,
-    },
-    
-    reloadButtonText: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-    
-    listaCliente: {
-        padding: 10,
         borderBottomWidth: 2,
-        borderBottomColor: "#ccc",
-        width: 500
+        borderBottomColor: "#ccc"
     },
     
-    label: {
-        fontSize: 18,
-        fontWeight: "bold",
-        marginBottom: 5,
+    textStyle: {
+        color: '#000',
+        fontSize: 15
     },
     
-    value: {
-        fontSize: 16,
-        marginBottom: 10,
-    },
+    icon: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    }
 });

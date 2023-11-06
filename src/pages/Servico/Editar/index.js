@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 export default (props) => {
     return (
         <View>
-            <Text>Editar</Text>
+            <Text>Editar Serviço</Text>
         </View>
     );
 };
