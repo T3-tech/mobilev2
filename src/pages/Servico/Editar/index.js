@@ -32,7 +32,7 @@ export default ({ route }) => {
         profissionalId: idProfissionalServico,
     });
 
-    const editAgendamento = async () => {
+    const editServico = async () => {
         try {
             responsePut = await fetch(
                 `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Servicos/${id}`,
@@ -105,7 +105,19 @@ export default ({ route }) => {
                     onSelect={(selectedItem, index) => {
                         validateProfissionalId(selectedItem);
                     }}
+                    searchPlaceHolder={"Pesquisar profissional"}
                     defaultButtonText={nomeDefault}
+                    search={true}
+                    key={profissional.map((item) => item.id)}
+                    buttonStyle={{
+                        backgroundColor: "#6E6E6E",
+                        borderRadius: 5,
+                        width: 350,
+                        height: 40,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        color: "#FFFFFF",
+                    }}
                 />
             </View>
 
@@ -114,7 +126,7 @@ export default ({ route }) => {
                     name="checkmark-circle-outline"
                     size={50}
                     color={"green"}
-                    onPress={() => editAgendamento()}
+                    onPress={() => editServicoo()}
                 />
             </View>
         </>

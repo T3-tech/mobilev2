@@ -8,6 +8,7 @@ import {
     StyleSheet
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import props from './../../Login/index';
 
 export default (pros) => {
     const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais";
@@ -44,6 +45,8 @@ export default (pros) => {
         }
     };
 
+
+
     useEffect(() => {
         getProfissional();
     }, []);
@@ -66,16 +69,26 @@ export default (pros) => {
                                 <View style={styles.listaProfissional}>
                                     <View style={styles.icon}>
                                         <View >
-                                            <Text style={styles.textStyle}>
-                                                Nome: {item.nome}
-                                            </Text>
-                                            <Text style={styles.textStyle}>
-                                                Telefone: {item.telefone}
-                                            </Text>
-                                            <Text style={styles.textStyle}>
-                                                CPF: {item.cpf}
-                                            </Text>
+                                            <TouchableOpacity
+                                                onPress={() =>
+                                                    pros.navigation.navigate(
+                                                        "ListarPorId", {
+                                                        id: item.id,
+                                                        nome: item.nome,
+                                                        cpf: item.cpf,
+                                                        telefone: item.telefone
+                                                    })}>
 
+                                                <Text style={styles.textStyle}>
+                                                    Nome: {item.nome}
+                                                </Text>
+                                                <Text style={styles.textStyle}>
+                                                    Telefone: {item.telefone}
+                                                </Text>
+                                                <Text style={styles.textStyle}>
+                                                    CPF: {item.cpf}
+                                                </Text>
+                                            </TouchableOpacity>
                                         </View>
                                         <View>
                                             <Ionicons
