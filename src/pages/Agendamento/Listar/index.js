@@ -1,6 +1,6 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { ListItem } from "@rneui/themed";
-import { useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native"
+import { ListItem } from "@rneui/themed"
+import { useEffect, useState } from "react"
 import {
     StyleSheet,
     Text,
@@ -14,30 +14,30 @@ import {
 } from "react-native";
 
 export default (props) => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [agendamento, setAgendamento] = useState([]);
-    const [statusFilter, setStatusFilter] = useState("");
-    const [dateFilter, setDateFilter] = useState("");
+    const [isLoading, setIsLoading] = useState(true)
+    const [agendamento, setAgendamento] = useState([])
+    const [statusFilter, setStatusFilter] = useState("")
+    const [dateFilter, setDateFilter] = useState("")
 
-    const url = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos";
+    const url = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos"
 
     const getAgendamento = async () => {
         try {
-            const response = await fetch(url);
-            const json = await response.json();
-            setAgendamento(json);
+            const response = await fetch(url)
+            const json = await response.json()
+            setAgendamento(json)
 
         } catch (error) {
             console.error(
                 "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):",
             );
         } finally {
-            setIsLoading(false);
+            setIsLoading(false)
         }
     };
 
     useEffect(() => {
-        getAgendamento();
+        getAgendamento()
     }, []);
 
     const filteredAgendamento = agendamento.filter((item) => {
@@ -47,11 +47,11 @@ export default (props) => {
                 item.data.includes(dateFilter)
             );
         } else if (statusFilter) {
-            return item.statusNome.includes(statusFilter);
+            return item.statusNome.includes(statusFilter)
         } else if (dateFilter) {
-            return item.data.includes(dateFilter);
+            return item.data.includes(dateFilter)
         } else {
-            return true;
+            return true
         }
     });
 
@@ -93,6 +93,59 @@ export default (props) => {
                                     <Text>
                                         {item.clienteNome} - {item.data}
                                     </Text>
+                                    <View style={styles.ViewIcon}>
+                                        <Text>
+                                            Profissional:{" "}
+                                            {item.nomeProfissional}
+                                        </Text>
+                                        <View>
+                                            <Ionicons
+                                                name="create-outline"
+                                                size={25}
+                                                color={"blue"}
+                                                onPress={() =>
+                                                    props.navigation.navigate(
+                                                        "EditaAgendamento",
+                                                        {
+                                                            id: item.id,
+                                                            nome: item.nome,
+                                                            valor: item.valor,
+                                                            idProfissional:
+                                                                item.idProfissional,
+                                                            navigator:
+                                                                props.navigation,
+                                                        }
+                                                    )
+                                                }
+                                            />
+                                            <Ionicons
+                                                marginTop
+                                                name="trash-outline"
+                                                size={25}
+                                                color={"red"}
+                                                onPress={() =>
+                                                    Alert.alert(
+                                                        "Deletar Agendamento",
+                                                        "Deseja deletar o agendamento?",
+                                                        [
+                                                            {
+                                                                text: "Não",
+                                                                onPress: () =>
+                                                                    console.log("Cancel Pressed"),
+                                                                style: "cancel",
+                                                            },
+                                                            {
+                                                                text: "Sim",
+                                                                onPress: () =>
+                                                                    deteleAgendamento(item.id),
+                                                            },
+                                                        ],
+                                                        { cancelable: false }
+                                                    )
+                                                }
+                                            />
+                                        </View>
+                                    </View>
                                 </View>
                             )}
                         />
@@ -100,8 +153,8 @@ export default (props) => {
                 )}
             </View>
         </>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     header: {
@@ -149,4 +202,4 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     }
-});
+})

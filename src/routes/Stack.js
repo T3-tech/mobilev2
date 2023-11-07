@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "../pages/Login";
 import Tab from "./Tab";
-import CadastraAgendamentos from "../pages/Agendamento/Cadastrar";
+import CadastraAgendamento from "../pages/Agendamento/Cadastrar";
 import CadastraServico from "../pages/Servico/Cadastrar";
 import Percentual from "../pages/Faturamento/Percentual";
 import CadastraFuncionario from "../pages/Funcionario/Cadastrar";
@@ -29,7 +29,7 @@ export default function Stack() {
                 />
                 <navegacaoStack.Screen
                     name="CadastraAgendamento"
-                    component={CadastraAgendamentos}
+                    component={CadastraAgendamento}
                     options={{ title: "Cadastrar agendamento" }}
                 />
                 <navegacaoStack.Screen
