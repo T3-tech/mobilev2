@@ -106,7 +106,6 @@ export default (props) => (
                             />
                         );
                     },
-                    headerRight: () => BotaoCriar("Percentual", navigation),
                 };
             }}
         />
@@ -143,35 +142,34 @@ export default (props) => (
         />
 
         <Tab.Screen
-                    name="ListaCliente"
-                    component={ListaCliente}
-                    options={({ navigation }) => {
-                        return {
-                            title: "Cliente",
-                            tabBarIcon: ({ color, size, focused }) => {
-                                if (focused) {
-                                    return (
-                                        <Ionicons
-                                            name="person-add"
-                                            size={size}
-                                            color={color}
-                                        />
-                                    );
-                                }
+            name="ListaCliente"
+            component={ListaCliente}
+            options={({ navigation }) => {
+                return {
+                    title: "Cliente",
+                    tabBarIcon: ({ color, size, focused }) => {
+                        if (focused) {
+                            return (
+                                <Ionicons
+                                    name="person-add"
+                                    size={size}
+                                    color={color}
+                                />
+                            );
+                        }
 
-                                return (
-                                    <Ionicons
-                                        name="person-add-outline"
-                                        size={size}
-                                        color={color}
-                                    />
-                                );
-                            },
-                            headerRight: () => BotaoCriar("CadastrarCliente", navigation),
-                        };
-                    }}
+                        return (
+                            <Ionicons
+                                name="person-add-outline"
+                                size={size}
+                                color={color}
+                            />
+                        );
+                    },
+                    headerRight: () =>
+                        BotaoCriar("CadastrarCliente", navigation),
+                };
+            }}
         />
-
-
     </Tab.Navigator>
 );

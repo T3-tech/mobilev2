@@ -5,14 +5,13 @@ import Login from "../pages/Login";
 import Tab from "./Tab";
 import CadastraAgendamento from "../pages/Agendamento/Cadastrar";
 import CadastraServico from "../pages/Servico/Cadastrar";
-import Percentual from "../pages/Faturamento/Percentual";
 import CadastraFuncionario from "../pages/Funcionario/Cadastrar";
 import EditarServico from "../pages/Servico/Editar";
 import EditarProfissional from "../pages/Funcionario/Editar";
 import CadastrarCliente from "../pages/Cliente/Cadastrar";
 import EditarCliente from "../pages/Cliente/Editar";
 
-import ListarPorId from "../pages/Funcionario/Listar/indexgetid"
+import ListarPorId from "../pages/Funcionario/Listar/indexgetid";
 const navegacaoStack = createNativeStackNavigator();
 
 export default function Stack() {
@@ -38,11 +37,6 @@ export default function Stack() {
                     name="CadastraServico"
                     component={CadastraServico}
                     options={{ title: "Cadastrar serviço" }}
-                />
-                <navegacaoStack.Screen
-                    name="Percentual"
-                    component={Percentual}
-                    options={{ title: "Percentual" }}
                 />
                 <navegacaoStack.Screen
                     name="CadastraFuncionario"
@@ -71,7 +65,7 @@ export default function Stack() {
                     component={EditarCliente}
                     options={{ title: "Editar Cliente" }}
                 />
-                
+
                 <navegacaoStack.Screen
                     name="ListarPorId"
                     component={ListarPorId}

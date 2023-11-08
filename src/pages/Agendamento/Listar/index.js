@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native"
 import { ListItem } from "@rneui/themed"
 import { useEffect, useState } from "react"
+import { Ionicons } from "@expo/vector-icons";
 import {
     StyleSheet,
     Text,
