@@ -5,7 +5,8 @@ import {
     ActivityIndicator,
     FlatList,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    SafeAreaView
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import props from './../../Login/index';
@@ -52,72 +53,83 @@ export default (pros) => {
     }, []);
 
     return (
+        <SafeAreaView>
+            <View style={styles.profissionalContainer}>
+                {isLoading ? (<ActivityIndicator size={50} color={'black'} />) :
+                    (
+                        <View style={styles.profissionalContainerInterno}>
+                            <View>
+                                <TouchableOpacity onPress={() => getProfissional()} style={styles.reloadButton}>
+                                    <Text style={{ color: 'white' }}>Atualizar</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <FlatList
+                                data={profissional}
+                                keyExtractor={({ id }) => id}
+                                renderItem={({ item }) => (
+                                    <View style={styles.listaProfissional}>
+                                        <View style={styles.icon}>
+                                            <View >
+                                                <TouchableOpacity
+                                                    onPress={() =>
+                                                        pros.navigation.navigate(
+                                                            "ListarPorId", {
+                                                            id: item.id,
+                                                            nome: item.nome,
+                                                            cpf: item.cpf,
+                                                            telefone: item.telefone
+                                                        })}>
 
-        <View style={styles.profissionalContainer}>
-            {isLoading ? (<ActivityIndicator size={50} color={'black'} />) :
-                (
-                    <View style={styles.profissionalContainerInterno}>
-                        <View>
-                            <TouchableOpacity onPress={() => getProfissional()} style={styles.reloadButton}>
-                                <Text style={{ color: 'white' }}>Atualizar</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <FlatList
-                            data={profissional}
-                            keyExtractor={({ id }) => id}
-                            renderItem={({ item }) => (
-                                <View style={styles.listaProfissional}>
-                                    <View style={styles.icon}>
-                                        <View >
-                                            <TouchableOpacity
-                                                onPress={() =>
-                                                    pros.navigation.navigate(
-                                                        "ListarPorId", {
-                                                        id: item.id,
-                                                        nome: item.nome,
-                                                        cpf: item.cpf,
-                                                        telefone: item.telefone
-                                                    })}>
+                                                    <Text style={styles.textStyle}>
+                                                        Nome: {item.nome}
+                                                    </Text>
+                                                    <Text style={styles.textStyle}>
+                                                        Telefone: {item.telefone}
+                                                    </Text>
+                                                    <Text style={styles.textStyle}>
+                                                        CPF: {item.cpf}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            <View>
+                                                <Ionicons
+                                                    name="create-outline"
+                                                    size={25}
+                                                    color={"blue"}
+                                                    onPress={() => pros.navigation.navigate(
+                                                        "EditarProfissional",
+                                                        {
+                                                            id: item.id,
+                                                            nome: item.nome,
+                                                            telefone: item.telefone,
+                                                            cpf: item.cpf
 
-                                                <Text style={styles.textStyle}>
-                                                    Nome: {item.nome}
-                                                </Text>
-                                                <Text style={styles.textStyle}>
-                                                    Telefone: {item.telefone}
-                                                </Text>
-                                                <Text style={styles.textStyle}>
-                                                    CPF: {item.cpf}
-                                                </Text>
-                                            </TouchableOpacity>
+                                                        })}
+
+
+                                                />
+                                                <Ionicons
+                                                    name="trash-outline"
+                                                    size={25}
+                                                    color={"red"}
+                                                    onPress={() =>
+                                                        deteleProfissional(item.id)
+                                                    }
+                                                />
+                                            </View>
                                         </View>
-                                        <View>
-                                            <Ionicons
-                                                name="create-outline"
-                                                size={25}
-                                                color={"blue"}
 
-
-                                            />
-                                            <Ionicons
-                                                name="trash-outline"
-                                                size={25}
-                                                color={"red"}
-                                                onPress={() =>
-                                                    deteleProfissional(item.id)
-                                                }
-                                            />
-                                        </View>
                                     </View>
-
-                                </View>
-                            )}
-                        />
+                                )}
+                            />
 
 
-                    </View>
+                        </View>
 
-                )}
-        </View>
+                    )}
+            </View>
+        </SafeAreaView>
+
     );
 };
 const styles = StyleSheet.create({

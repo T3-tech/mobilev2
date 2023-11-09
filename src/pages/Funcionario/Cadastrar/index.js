@@ -1,4 +1,4 @@
-import { Text, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -62,50 +62,52 @@ export default (pros) => {
     }
 
     return (
-        <View >
-            <View style={styles.containerInterno}>
-                <TextInput style={styles.inputStyle}
-                    placeholder='Nome'
-                    value={nome}
-                    onChangeText={attNome}
-                    placeholderTextColor={"#fff"}>
-                </TextInput>
+        <SafeAreaView>
+            <View >
+                <View style={styles.containerInterno}>
+                    <TextInput style={styles.inputStyle}
+                        placeholder='Nome'
+                        value={nome}
+                        onChangeText={attNome}
+                        placeholderTextColor={"#fff"}>
+                    </TextInput>
 
-                <TextInput style={styles.inputStyle}
-                    placeholder="Cpf"
-                    value={cpf}
-                    onChangeText={attCpf}
-                    placeholderTextColor={"#fff"}>
-                </TextInput>
+                    <TextInput style={styles.inputStyle}
+                        placeholder="Cpf"
+                        value={cpf}
+                        onChangeText={attCpf}
+                        placeholderTextColor={"#fff"}>
+                    </TextInput>
 
-                <TextInput style={styles.inputStyle}
-                    placeholder="Telefone"
-                    value={telefone}
-                    onChangeText={attTelefone}
-                    placeholderTextColor={"#fff"}>
-                </TextInput>
-            </View>
-
-            <View style={styles.viewIcon}>
-                <View>
-                    <Ionicons
-                        name="trash-outline"
-                        size={25}
-                        color={"red"}
-                        onPress={() => limpar()}
-                    />
+                    <TextInput style={styles.inputStyle}
+                        placeholder="Telefone"
+                        value={telefone}
+                        onChangeText={attTelefone}
+                        placeholderTextColor={"#fff"}>
+                    </TextInput>
                 </View>
-                <View>
-                    <Ionicons
-                        name="checkmark-circle-outline"
-                        size={25}
-                        color={"green"}
-                        onPress={() => enviar()}
-                    />
-                </View>
-            </View>
 
-        </View>
+                <View style={styles.viewIcon}>
+                    <View>
+                        <Ionicons
+                            name="trash-outline"
+                            size={25}
+                            color={"red"}
+                            onPress={() => limpar()}
+                        />
+                    </View>
+                    <View>
+                        <Ionicons
+                            name="checkmark-circle-outline"
+                            size={25}
+                            color={"green"}
+                            onPress={() => enviar()}
+                        />
+                    </View>
+                </View>
+
+            </View>
+        </SafeAreaView>
     );
 
 
