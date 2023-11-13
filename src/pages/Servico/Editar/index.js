@@ -126,7 +126,7 @@ export default ({ route }) => {
                     name="checkmark-circle-outline"
                     size={50}
                     color={"green"}
-                    onPress={() => editServicoo()}
+                    onPress={() => editServico()}
                 />
             </View>
         </>
