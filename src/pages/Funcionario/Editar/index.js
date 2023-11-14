@@ -7,8 +7,8 @@ export default ({ route }) => {
     const { id, nome, telefone, cpf } = route.params;
     const URL = `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais/${id}`;
     const [nomeProfissional, setNomeProfissional] = useState(nome);
-    const [telefoneProfissional, setCpfProfissional] = useState(telefone);
-    const [cpfProfissional, setTelefoneProfissional] = useState(cpf);
+    const [telefoneProfissional, setTelefoneProfissional] = useState(cpf);
+    const [cpfProfissional, setCpfProfissional] = useState(telefone);
     const BAD_REQUEST = 400;
     let response;
 
