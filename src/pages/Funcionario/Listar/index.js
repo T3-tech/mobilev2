@@ -100,9 +100,9 @@ export default (pros) => {
                                                         "EditarProfissional",
                                                         {
                                                             id: item.id,
-                                                            nome: item.nome,
-                                                            telefone: item.telefone,
-                                                            cpf: item.cpf
+                                                            //nome: item.nome,
+                                                            //telefone: item.telefone,
+                                                            //cpf: item.cpf
 
                                                         })}
 

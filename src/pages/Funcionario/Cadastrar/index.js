@@ -7,7 +7,8 @@ export default (pros) => {
     const [nome, setNome] = useState('');
     const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
-
+    const BAD_REQUEST = 400;
+    let response;
     const atualizaNome = (text) => {
         setNome(text);
     }
@@ -81,7 +82,7 @@ export default (pros) => {
 
     const cadastrarProfissional = async (profissional) => {
         try {
-            await fetch(URL, {
+            response = await fetch(URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,6 +94,9 @@ export default (pros) => {
                 "🚀 ~ file: index.js:46 ~ postProfissional ~ console.log(error):",
             );
         } finally {
+            if (response.status == BAD_REQUEST) {
+                alert("CPF JÁ CADASTRADO");
+            }
             limpar();
         }
 

@@ -9,6 +9,8 @@ export default ({ route }) => {
     const [nome, setNome] = useState('');
     const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
+    const BAD_REQUEST = 400;
+    let response;
 
     const atualizaNome = (text) => {
         setNome(text);
@@ -83,7 +85,7 @@ export default ({ route }) => {
 
     const editarProfissional = async (profissional) => {
         try {
-            await fetch(URL, {
+            response = await fetch(URL, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,6 +97,9 @@ export default ({ route }) => {
                 "🚀 ~ file: index.js:46 ~ postProfissional ~ console.log(error):",
             );
         } finally {
+            if (response.status == BAD_REQUEST) {
+                alert("CPF JÁ CADASTRADO");
+            }
             limpar();
         }
 
