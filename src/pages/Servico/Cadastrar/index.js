@@ -111,8 +111,8 @@ export default (props) => {
                         height: 40,
                         justifyContent: "center",
                         alignItems: "center",
-                        color: "#FFFFFF",
                     }}
+                    buttonTextStyle={{color: "#FFF"}}
                     search={true}
                 />
             </View>

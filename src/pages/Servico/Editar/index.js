@@ -116,8 +116,8 @@ export default ({ route }) => {
                         height: 40,
                         justifyContent: "center",
                         alignItems: "center",
-                        color: "#FFFFFF",
                     }}
+                    buttonTextStyle={{color: "#FFF"}}
                 />
             </View>
 

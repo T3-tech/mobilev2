@@ -99,22 +99,20 @@ export default (props) => {
                                             Profissional:{" "}
                                             {item.nomeProfissional}
                                         </Text>
-                                        <View>
+                                        <View style={styles.ViewIcon}>
                                             <Ionicons
                                                 name="create-outline"
                                                 size={25}
                                                 color={"blue"}
                                                 onPress={() =>
                                                     props.navigation.navigate(
-                                                        "EditaAgendamento",
+                                                        "EditarAgendamento",
                                                         {
                                                             id: item.id,
-                                                            nome: item.nome,
-                                                            valor: item.valor,
-                                                            idProfissional:
-                                                                item.idProfissional,
-                                                            navigator:
-                                                                props.navigation,
+                                                            data: item.data,
+                                                            nomeServico: item.servicoNome,
+                                                            status: item.statusNome,
+                                                            navigator: props.navigation,
                                                         }
                                                     )
                                                 }
@@ -202,5 +200,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: "center",
         alignItems: "center",
-    }
+    },
+    ViewIcon: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
 })

@@ -10,6 +10,7 @@ import EditarServico from "../pages/Servico/Editar";
 import EditarProfissional from "../pages/Funcionario/Editar";
 import CadastrarCliente from "../pages/Cliente/Cadastrar";
 import EditarCliente from "../pages/Cliente/Editar";
+import EditarAgendamento from "../pages/Agendamento/Editar";
 
 import ListarPorId from "../pages/Funcionario/Listar/indexgetid";
 const navegacaoStack = createNativeStackNavigator();
@@ -53,23 +54,25 @@ export default function Stack() {
                     component={EditarProfissional}
                     options={{ title: "Editar funcionário" }}
                 />
-
                 <navegacaoStack.Screen
                     name="CadastrarCliente"
                     component={CadastrarCliente}
                     options={{ title: "Cadastrar Cliente" }}
                 />
-
                 <navegacaoStack.Screen
                     name="EditarCliente"
                     component={EditarCliente}
                     options={{ title: "Editar Cliente" }}
                 />
-
                 <navegacaoStack.Screen
                     name="ListarPorId"
                     component={ListarPorId}
                     options={{ headerShown: false }}
+                />
+                <navegacaoStack.Screen
+                    name="EditarAgendamento"
+                    component={EditarAgendamento}
+                    options={{ title: "Editar Agendamento" }}
                 />
             </navegacaoStack.Navigator>
         </NavigationContainer>
