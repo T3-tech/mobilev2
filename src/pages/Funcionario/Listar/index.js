@@ -9,9 +9,9 @@ import {
     SafeAreaView
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import props from './../../Login/index';
 
-export default (pros) => {
+
+export default (props) => {
     const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais";
     const [isLoading, setIsLoading] = useState(true);
     const [profissional, setProfissional] = useState([]);
@@ -72,7 +72,7 @@ export default (pros) => {
                                             <View >
                                                 <TouchableOpacity
                                                     onPress={() =>
-                                                        pros.navigation.navigate(
+                                                        props.navigation.navigate(
                                                             "ListarPorId", {
                                                             id: item.id,
                                                             nome: item.nome,
@@ -96,13 +96,13 @@ export default (pros) => {
                                                     name="create-outline"
                                                     size={25}
                                                     color={"blue"}
-                                                    onPress={() => pros.navigation.navigate(
+                                                    onPress={() => props.navigation.navigate(
                                                         "EditarProfissional",
                                                         {
                                                             id: item.id,
-                                                            //nome: item.nome,
-                                                            //telefone: item.telefone,
-                                                            //cpf: item.cpf
+                                                            nome: item.nome,
+                                                            telefone: item.telefone,
+                                                            cpf: item.cpf
 
                                                         })}
 

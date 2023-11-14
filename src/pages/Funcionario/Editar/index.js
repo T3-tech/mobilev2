@@ -4,28 +4,28 @@ import { Ionicons } from "@expo/vector-icons";
 
 
 export default ({ route }) => {
-    const { id } = route.params;
+    const { id, nome, telefone, cpf } = route.params;
     const URL = `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais/${id}`;
-    const [nome, setNome] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [telefone, setTelefone] = useState('');
+    const [nomeProfissional, setNomeProfissional] = useState(nome);
+    const [telefoneProfissional, setCpfProfissional] = useState(telefone);
+    const [cpfProfissional, setTelefoneProfissional] = useState(cpf);
     const BAD_REQUEST = 400;
     let response;
 
     const atualizaNome = (text) => {
-        setNome(text);
+        setNomeProfissional(text);
     }
     const atualizaCpf = (text) => {
-        setCpf(text);
+        setCpfProfissional(text);
     }
     const atualizaTelefone = (text) => {
-        setTelefone(text);
+        setTelefoneProfissional(text);
     }
 
     function limpar() {
-        setNome('');
-        setCpf('');
-        setTelefone('');
+        setNomeProfissional('');
+        setCpfProfissional('');
+        setTelefoneProfissional('');
     }
 
     function validarCPF(cpf) {
@@ -74,9 +74,9 @@ export default ({ route }) => {
             alert("CPF com padrão incorreto")
         } else {
             const profissional = {
-                nome: nome,
-                cpf: cpf,
-                telefone: telefone
+                nome: nomeProfissional,
+                cpf: cpfProfissional,
+                telefone: telefoneProfissional
             };
             editarProfissional(profissional);
         }
@@ -105,6 +105,8 @@ export default ({ route }) => {
 
     }
 
+
+
     return (
 
         <SafeAreaView>
@@ -112,23 +114,28 @@ export default ({ route }) => {
                 <View style={styles.containerInterno}>
                     <TextInput style={styles.inputStyle}
                         placeholder='Nome'
-                        value={nome}
                         onChangeText={atualizaNome}
+                        value={nomeProfissional}
+                        defaultValue={nomeProfissional}
                         placeholderTextColor={"#fff"}>
                     </TextInput>
 
                     <TextInput style={styles.inputStyle}
                         placeholder="Cpf"
-                        value={cpf}
                         onChangeText={atualizaCpf}
+                        value={cpfProfissional}
+                        defaultValue={cpfProfissional}
                         placeholderTextColor={"#fff"}>
                     </TextInput>
 
                     <TextInput style={styles.inputStyle}
                         placeholder="Telefone"
-                        value={telefone}
                         onChangeText={atualizaTelefone}
+                        value={telefoneProfissional}
+                        defaultValue={telefoneProfissional}
                         placeholderTextColor={"#fff"}>
+
+
                     </TextInput>
                 </View>
 
