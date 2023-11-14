@@ -7,8 +7,8 @@ export default ({ route }) => {
     const { id, nome, telefone, cpf } = route.params;
     const URL = `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais/${id}`;
     const [nomeProfissional, setNomeProfissional] = useState(nome);
-    const [telefoneProfissional, setTelefoneProfissional] = useState(cpf);
-    const [cpfProfissional, setCpfProfissional] = useState(telefone);
+    const [telefoneProfissional, setTelefoneProfissional] = useState(telefone);
+    const [cpfProfissional, setCpfProfissional] = useState(cpf);
     const BAD_REQUEST = 400;
     let response;
 
@@ -67,10 +67,10 @@ export default ({ route }) => {
 
 
     function enviar() {
-        if (nome == "" || cpf == "" || telefone == "") {
+        if (nomeProfissional == "" || cpfProfissional == "" || telefoneProfissional == "") {
             alert("Checar se alguma informação está nula");
         }
-        if (!validarCPF(cpf)) {
+        if (!validarCPF(cpfProfissional)) {
             alert("CPF com padrão incorreto")
         } else {
             const profissional = {
