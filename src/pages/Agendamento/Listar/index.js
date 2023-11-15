@@ -15,16 +15,15 @@ import {
 } from "react-native";
 
 export default (props) => {
+    const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos"
     const [isLoading, setIsLoading] = useState(true)
     const [agendamento, setAgendamento] = useState([])
     const [statusFilter, setStatusFilter] = useState("")
     const [dateFilter, setDateFilter] = useState("")
 
-    const url = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos"
-
     const getAgendamento = async () => {
         try {
-            const response = await fetch(url)
+            const response = await fetch(URL)
             const json = await response.json()
             setAgendamento(json)
 
@@ -34,6 +33,20 @@ export default (props) => {
             );
         } finally {
             setIsLoading(false)
+        }
+    };
+
+    const deteleAgendamento = async (id) => {
+        try {
+            await fetch(`${URL}/${id}`, {
+                method: "DELETE",
+            });
+        } catch (error) {
+            console.error(
+                "🚀 ~ file: index.js:47 ~ getAgendamento ~ console.log(error):"
+            );
+        } finally {
+            getAgendamento();
         }
     };
 

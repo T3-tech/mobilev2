@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default (props) => {
     const [nomeServico, setNomeServico] = useState("");
-    const [valorSerivo, setValor] = useState("");
+    const [valorServico, setValor] = useState("");
     const [idProfissionalServico, setIdProfissional] = useState("");
     const [profissional, setProfissional] = useState([]);
     var responsePost;
@@ -27,7 +27,7 @@ export default (props) => {
 
     json = JSON.stringify({
         nome: nomeServico,
-        valor: parseFloat(valorSerivo),
+        valor: parseFloat(valorServico),
         profissionalId: idProfissionalServico,
     });
 
@@ -94,7 +94,7 @@ export default (props) => {
                     placeholder="Valor do serviço"
                     onChangeText={setValor}
                     placeholderTextColor={"#fff"}
-                    value={valorSerivo}
+                    value={valorServico}
                 />
                 <SelectDropdown
                     data={profissional.map((item) => item.nome)}

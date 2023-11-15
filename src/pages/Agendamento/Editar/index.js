@@ -4,7 +4,6 @@ import SelectDropdown from "react-native-select-dropdown"
 import { Ionicons } from "@expo/vector-icons"
 
 export default ({ route }) => {    
-    const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos"
     const { id, data, nomeServico, nomeStatus, navigator } = route.params
     const [dataAgendamento, setDataAgendamento] = useState(data)
     const [servico, setServico] = useState([])

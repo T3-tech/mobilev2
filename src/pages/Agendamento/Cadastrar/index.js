@@ -7,7 +7,11 @@ export default (pros) => {
     const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos"
     const [data, setData] = useState('')
     const [servico, setServico] = useState([])
-    const [idServico, setServicoId] = useState('')
+    const [servicoId, setServicoId] = useState('')
+    const [cliente, setCliente] = useState([])
+    const [clienteId, setClienteId] = useState('')
+    const statusPendente = 1
+
 
     const getServico = async () => {
         try {
@@ -18,45 +22,50 @@ export default (pros) => {
             setServico(json)
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):",
-            );
+                "🚀 ~ file: index.js:25 ~ getServico ~ console.log(error):",
+            )
         }
     }
     
-    const attData = (text) => {
-        setData(text)
+    const getCliente = async () => {
+        try {
+            const response = await fetch("https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Clientes")
+            const json = await response.json()
+            setCliente(json)
+        } 
+        catch (error) {
+            console.error(
+                "🚀 ~ file: index.js:38 ~ getCliente ~ console.log(error):",
+            )
+        }
     }
 
     function limpar() {
         setData('')
+        setCliente('')
         setServico('')
-        setProfissional('')
     }
 
-    function enviar() {
-        if (data == "") {
-            alert("Verifique se alguma informação está nula")
-        } else {
-            const agendamento = {
-                data: data,
-            };
-            cadastraAgendamento(agendamento)
-        }
-    }
+    json = JSON.stringify({
+        data: data,
+        clienteId: clienteId,
+        servicoId: servicoId,
+        statusId: statusPendente,
+    })
 
-    const cadastraAgendamento = async (agendamento) => {
+    const cadastraAgendamento = async () => {
         try {
             await fetch(URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(agendamento),
+                body: json,
             })
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:46 ~ postAgendamento ~ console.log(error):",
-            );
+                "🚀 ~ file: index.js:67 ~ postAgendamento ~ console.log(error):",
+            )
         } finally {
             limpar()
         }
@@ -70,7 +79,16 @@ export default (pros) => {
         });
     }
 
+    function validateClienteId(nomeCliente) {
+        cliente.map((item) => {
+            if (item.nome === nomeCliente) {
+                setClienteId(item.id);
+            }
+        });
+    }
+
     useEffect(() => {
+        getCliente()
         getServico()
     }, [])
 
@@ -80,9 +98,29 @@ export default (pros) => {
                 <TextInput style={styles.input}
                     placeholder='Data'
                     value={data}
-                    onChangeText={attData}
+                    onChangeText={setData}
                     placeholderTextColor={"#fff"}>
                 </TextInput>
+                <SelectDropdown
+                    data={cliente.map((item) => item.nome)}
+                    onSelect={(selectedItem, index) => {
+                        validateClienteId(selectedItem)
+                    }}
+                    defaultButtonText={"Selecione um cliente"}
+                    searchPlaceHolder={"Pesquisar cliente"}
+                    key={cliente.map((item) => item.id)}
+                    buttonStyle={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: 350,
+                        height: 40,
+                        margin: 10,
+                        borderRadius: 5,
+                        backgroundColor: "#6E6E6E",
+                    }}
+                    buttonTextStyle={{color: "#FFF"}}
+                    search={true}
+                />
                 <SelectDropdown
                     data={servico.map((item) => item.nome)}
                     onSelect={(selectedItem, index) => {
@@ -115,7 +153,7 @@ export default (pros) => {
                         name="checkmark-circle-outline"
                         size={25}
                         color={"green"}
-                        onPress={() => enviar()}
+                        onPress={() => cadastraAgendamento()}
                     />
             </View>
         </>
