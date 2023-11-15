@@ -43,7 +43,7 @@ export default (props) => {
             });
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:47 ~ getAgendamento ~ console.log(error):"
+                "🚀 ~ file: index.js:47 ~ deleteAgentamento ~ console.log(error):"
             );
         } finally {
             getAgendamento();

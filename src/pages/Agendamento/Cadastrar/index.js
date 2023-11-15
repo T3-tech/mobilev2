@@ -1,4 +1,4 @@
-import { TextInput, View, StyleSheet, } from "react-native"
+import { TextInput, View, StyleSheet, Text, } from "react-native"
 import { useEffect, useState } from "react"
 import { Ionicons } from "@expo/vector-icons"
 import SelectDropdown from "react-native-select-dropdown"
@@ -12,7 +12,6 @@ export default (pros) => {
     const [clienteId, setClienteId] = useState('')
     const statusPendente = 1
 
-
     const getServico = async () => {
         try {
             const response = await fetch(
@@ -22,7 +21,7 @@ export default (pros) => {
             setServico(json)
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:25 ~ getServico ~ console.log(error):",
+                "🚀 ~ file: index.js:24 ~ getServico ~ console.log(error):",
             )
         }
     }
@@ -35,15 +34,9 @@ export default (pros) => {
         } 
         catch (error) {
             console.error(
-                "🚀 ~ file: index.js:38 ~ getCliente ~ console.log(error):",
+                "🚀 ~ file: index.js:37 ~ getCliente ~ console.log(error):",
             )
         }
-    }
-
-    function limpar() {
-        setData('')
-        setCliente('')
-        setServico('')
     }
 
     json = JSON.stringify({
@@ -54,21 +47,40 @@ export default (pros) => {
     })
 
     const cadastraAgendamento = async () => {
-        try {
-            await fetch(URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: json,
-            })
-        } catch (error) {
-            console.error(
-                "🚀 ~ file: index.js:67 ~ postAgendamento ~ console.log(error):",
-            )
-        } finally {
-            limpar()
+        if (data === "" || clienteId === "" || servicoId === "") {
+            alert("Por favor, preencha todos os campos.")
+        } else {
+            if (isDateValid(data)) {
+                try {
+                    await fetch(URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: json,
+                    })
+                } catch (error) {
+                    console.error(
+                        "🚀 ~ file: index.js:64 ~ postAgendamento ~ console.log(error):",
+                    )
+                } finally {
+                    limpar()
+                }
+            }
         }
+    }
+
+    function limpar() {
+        setData('')
+        setCliente('')
+        setServico('')
+    }
+
+    const regex = "^([1-9]|([012][0-9])|(3[01]))-([0]{0,1}[1-9]|1[012])-\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$"
+    const patern = new RegExp(regex)
+
+    function isDateValid(date) {
+        return patern.test(date);
     }
     
     function validateServicoId(nomeServico) {
@@ -96,7 +108,7 @@ export default (pros) => {
         <>
             <View style={styles.container}>
                 <TextInput style={styles.input}
-                    placeholder='Data'
+                    placeholder='DD-MM-AAAA HH:MM'
                     value={data}
                     onChangeText={setData}
                     placeholderTextColor={"#fff"}>
