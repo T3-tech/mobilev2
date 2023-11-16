@@ -8,6 +8,7 @@ export default (pros) => {
     const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
     const BAD_REQUEST = 400;
+    const SUCESSO = 200;
     let response;
     const atualizaNome = (text) => {
         setNome(text);
@@ -91,13 +92,16 @@ export default (pros) => {
             })
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:46 ~ postProfissional ~ console.log(error):",
+                "🚀 ~ file: index.js:95 ~ postProfissional ~ console.log(error):",
             );
         } finally {
             if (response.status == BAD_REQUEST) {
                 alert("CPF JÁ CADASTRADO");
+            } else if (response.status == SUCESSO) {
+                alert("FUNCIONÁRIO CADASTRADO COM SUCESSO");
+                limpar();
             }
-            limpar();
+
         }
 
 

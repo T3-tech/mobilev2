@@ -10,6 +10,7 @@ export default ({ route }) => {
     const [telefoneProfissional, setTelefoneProfissional] = useState(telefone);
     const [cpfProfissional, setCpfProfissional] = useState(cpf);
     const BAD_REQUEST = 400;
+    const NO_CONTENT = 204;
     let response;
 
     const atualizaNome = (text) => {
@@ -94,13 +95,16 @@ export default ({ route }) => {
             })
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:46 ~ postProfissional ~ console.log(error):",
+                "🚀 ~ file: index.js:98 ~ putProfissional ~ console.log(error):",
             );
         } finally {
             if (response.status == BAD_REQUEST) {
                 alert("CPF JÁ CADASTRADO");
+            } else if (response.status === NO_CONTENT) {
+                alert("EDITADO COM SUCESSO");
+                limpar();
             }
-            limpar();
+
         }
 
     }
