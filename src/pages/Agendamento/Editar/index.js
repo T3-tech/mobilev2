@@ -3,8 +3,8 @@ import { useEffect, useState } from "react"
 import SelectDropdown from "react-native-select-dropdown"
 import { Ionicons } from "@expo/vector-icons"
 
-export default ({ props, route }) => {    
-    const { id, data, servicoNome, clienteNome, clienteId, servicoId ,statusId } = route.params
+export default ({ route }) => {    
+    const { id, data, servicoNome, clienteNome, clienteId, servicoId ,statusId, navigator } = route.params
     const [dataAgendamento, setDataAgendamento] = useState(data)
     const [servico, setServico] = useState([])
     const [idServico, setServicoId] = useState(servicoId)
@@ -43,8 +43,8 @@ export default ({ props, route }) => {
 
     json = JSON.stringify({
         data: dataAgendamento,
-        servicoId: Number(servicoId),
-        clienteId: Number(clienteId),
+        clienteId: Number(idCliente),
+        servicoId: Number(idServico),
         statusId: Number(statusId),
     })
 
@@ -69,13 +69,13 @@ export default ({ props, route }) => {
                 "🚀 ~ file: index.js:65 ~ editAgendamento ~ console.log(error):"
             )
         } finally {
-            if (!responsePut.status == 204) {
-                alert("Erro ao cadastrar agendamento.")
+            if (responsePut.status === 400) {
+                alert("Erro ao editar agendamento.")
                 return
             } 
             alert("Agendamento editado com sucesso!")
-            // props.navigation.navigate("ListarAgendamento")
-        }   
+            navigator.navigate("ListarAgendamento")
+        }
     }
 
     const regex = `^(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](202[0-9])[ ](0[0-9]|1[0-9]|2[0123])[:](0[0-9]|[12345][0-9])`
@@ -86,6 +86,7 @@ export default ({ props, route }) => {
         servico.map((item) => {
             if (nomeServico.includes(item.nome)) {
                 setServicoId(item.id)
+                console.log(item.id)
             }
         });
     }
@@ -94,6 +95,8 @@ export default ({ props, route }) => {
         cliente.map((item) => {
             if (item.nome === nomeCliente) {
                 setClienteId(item.id)
+                console.log(item.id)
+
             }
         });
     }

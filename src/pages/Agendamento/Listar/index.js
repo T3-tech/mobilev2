@@ -127,6 +127,7 @@ export default (props) => {
                                                             clienteNome: item.clienteNome,
                                                             servicoNome: item.servicoNome,
                                                             statusId: item.statusId,
+                                                            navigator: props.navigation,
                                                         }
                                                     )
                                                 }
