@@ -1,5 +1,3 @@
-import { NavigationContainer } from "@react-navigation/native"
-import { ListItem } from "@rneui/themed"
 import { useEffect, useState } from "react"
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -8,10 +6,9 @@ import {
     ActivityIndicator,
     FlatList,
     View,
-    Button,
     TextInput,
-    Touchable,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from "react-native";
 
 export default (props) => {
@@ -101,16 +98,18 @@ export default (props) => {
                             keyExtractor={({ id }) => id}
                             renderItem={({ item }) => (
                                 <View style={styles.listAgendamento}>
+                                    <Text style={{ textAlign: "center"}}>
+                                        {item.statusNome}
+                                    </Text>
                                     <Text>
-                                        {item.statusNome} - {item.servicoNome}
+                                        {item.servicoNome}
                                     </Text>
                                     <Text>
                                         {item.clienteNome} - {item.data}
                                     </Text>
                                     <View style={styles.ViewIcon}>
                                         <Text>
-                                            Profissional:{" "}
-                                            {item.nomeProfissional}
+                                            Profissional:{" "}{item.profissionalNome}
                                         </Text>
                                         <View style={styles.ViewIcon}>
                                             <Ionicons
@@ -122,16 +121,17 @@ export default (props) => {
                                                         "EditarAgendamento",
                                                         {
                                                             id: item.id,
+                                                            clienteId: item.clienteId,
+                                                            servicoId: item.servicoId,
                                                             data: item.data,
-                                                            nomeServico: item.servicoNome,
-                                                            status: item.statusNome,
-                                                            navigator: props.navigation,
+                                                            clienteNome: item.clienteNome,
+                                                            servicoNome: item.servicoNome,
+                                                            statusId: item.statusId,
                                                         }
                                                     )
                                                 }
                                             />
                                             <Ionicons
-                                                marginTop
                                                 name="trash-outline"
                                                 size={25}
                                                 color={"red"}

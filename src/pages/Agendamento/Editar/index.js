@@ -1,14 +1,31 @@
-import { View, Text, TextInput, StyleSheet, Alert } from "react-native"
+import { View, Text, TextInput, StyleSheet } from "react-native"
 import { useEffect, useState } from "react"
 import SelectDropdown from "react-native-select-dropdown"
 import { Ionicons } from "@expo/vector-icons"
 
-export default ({ route }) => {    
-    const { id, data, nomeServico, nomeStatus, navigator } = route.params
+export default ({ props, route }) => {    
+    const { id, data, servicoNome, clienteNome, clienteId, servicoId ,statusId } = route.params
     const [dataAgendamento, setDataAgendamento] = useState(data)
     const [servico, setServico] = useState([])
-    const [status, setStatus] = useState([])
-    const NO_CONTENT = 204
+    const [idServico, setServicoId] = useState(servicoId)
+    const [cliente, setCliente] = useState([])
+    const [idCliente, setClienteId] = useState(clienteId)
+    let responsePut
+
+    const getCliente = async () => {
+        try {
+            const response = await fetch(
+                "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Clientes"
+                )
+            const json = await response.json()
+            setCliente(json)
+        } 
+        catch (error) {
+            console.error(
+                "🚀 ~ file: index.js:24 ~ getCliente ~ console.log(error):",
+            )
+        }
+    }
 
     const getServico = async () => {
         try {
@@ -19,88 +36,90 @@ export default ({ route }) => {
             setServico(json)
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:22 ~ getServico ~ console.log(error):",
+                "🚀 ~ file: index.js:38 ~ getServico ~ console.log(error):",
             );
         }
     }
 
-    const getStatus = async () => {
-        try {
-            const response = await fetch(
-                "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Status"
-            )
-            const json = await response.json()
-            setStatus(json)
-        } catch (error) {
-            console.error(
-                "🚀 ~ file: index.js:49 ~ getServico ~ console.log(error):",
-            );
-        }
-    }
+    json = JSON.stringify({
+        data: dataAgendamento,
+        servicoId: Number(servicoId),
+        clienteId: Number(clienteId),
+        statusId: Number(statusId),
+    })
 
-    const editAgendamento = async () => {
+    console.log(json)
+
+    const editarAgendamento = async () => {
         try {
-            const response = await fetch(
+            responsePut = await fetch(
                 `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos/${id}`,
                 {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(dataAgendamento),
+                    body: json,
                 }
             );
+            console.log(responsePut.body)
+            console.log(responsePut.status)
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:53 ~ editAgendamento ~ console.log(error):"
-            );
+                "🚀 ~ file: index.js:65 ~ editAgendamento ~ console.log(error):"
+            )
         } finally {
-            if (response.status !== NO_CONTENT) {
-                Alert.alert(
-                    "Erro ao editar agendamento!",
-                    "Nenhum campo pode estar vazio!"
-                );
-            } else {
-                Alert.alert("Agendamento editado com sucesso!")
-                navigator.navigate("ListaAgendamento")
-            }
-        }
-    };
+            if (!responsePut.status == 204) {
+                alert("Erro ao cadastrar agendamento.")
+                return
+            } 
+            alert("Agendamento editado com sucesso!")
+            // props.navigation.navigate("ListarAgendamento")
+        }   
+    }
 
+    const regex = `^(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](202[0-9])[ ](0[0-9]|1[0-9]|2[0123])[:](0[0-9]|[12345][0-9])`
+
+    const patern = new RegExp(regex)
+    
     function validateServicoId(nomeServico) {
         servico.map((item) => {
-            if (item.nome === nomeServico) {
-                setServico(item.id);
+            if (nomeServico.includes(item.nome)) {
+                setServicoId(item.id)
             }
-        })
+        });
+    }
+
+    function validateClienteId(nomeCliente) {
+        cliente.map((item) => {
+            if (item.nome === nomeCliente) {
+                setClienteId(item.id)
+            }
+        });
     }
 
     useEffect(() => {
+        getCliente()
         getServico()
-        getStatus()
     }, []);
 
     return (
         <>
             <View style={styles.container}>
-                <Text style={styles.textoInput}>Escolha uma data</Text>
-                <TextInput
-                    placeholderTextColor={"#FFF"}
-                    style={styles.input}
-                    placeholder="Data"
-                    onChangeText={setDataAgendamento}
-                    defaultValue={data}
+                <TextInput style={styles.input}
+                    placeholder='Data/Hora'
                     value={dataAgendamento}
-                />
-                <Text style={styles.textoInput}>Escolha um serviço</Text>
+                    onChangeText={setDataAgendamento}
+                    placeholderTextColor={"#fff"}>
+                </TextInput>
+                <Text>Padrão para data: dd-mm-aaaa hh:mm</Text>
                 <SelectDropdown
-                    data={servico.map((item) => item.nome)}
+                    data={cliente.map((item) => item.nome)}
                     onSelect={(selectedItem, index) => {
-                        validateServicoId(selectedItem)
+                        validateClienteId(selectedItem)
                     }}
-                    defaultButtonText={nomeServico}
-                    searchPlaceHolder={"Pesquisar serviço"}
-                    key={servico.map((item) => item.id)}
+                    defaultButtonText={clienteNome}
+                    searchPlaceHolder={"Pesquisar cliente"}
                     buttonStyle={{
                         justifyContent: "center",
                         alignItems: "center",
@@ -113,15 +132,13 @@ export default ({ route }) => {
                     buttonTextStyle={{color: "#FFF"}}
                     search={true}
                 />
-                <Text style={styles.textoInput}>Altere o status</Text>
                 <SelectDropdown
-                    data={status.map((item) => item.nome)}
+                    data={servico.map((item) => item.nome + " - R$" + item.valor)}
                     onSelect={(selectedItem, index) => {
-                        setStatus(selectedItem)
+                        validateServicoId(selectedItem)
                     }}
-                    defaultButtonText={nomeStatus}
-                    searchPlaceHolder={"Pesquisar status"}
-                    key={status.map((item) => item.id)}
+                    defaultButtonText={servicoNome}
+                    searchPlaceHolder={"Pesquisar serviço"}
                     buttonStyle={{
                         justifyContent: "center",
                         alignItems: "center",
@@ -140,7 +157,7 @@ export default ({ route }) => {
                     name="checkmark-circle-outline"
                     size={50}
                     color={"green"}
-                    onPress={() => editAgendamento()}
+                    onPress={() => editarAgendamento()}
                 />
             </View>
         </>

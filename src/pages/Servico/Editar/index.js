@@ -108,7 +108,6 @@ export default ({ route }) => {
                     searchPlaceHolder={"Pesquisar profissional"}
                     defaultButtonText={nomeDefault}
                     search={true}
-                    key={profissional.map((item) => item.id)}
                     buttonStyle={{
                         backgroundColor: "#6E6E6E",
                         borderRadius: 5,

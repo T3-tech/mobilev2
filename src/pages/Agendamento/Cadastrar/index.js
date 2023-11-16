@@ -1,9 +1,9 @@
-import { TextInput, View, StyleSheet, Text, } from "react-native"
+import { TextInput, View, StyleSheet, Text, Alert, } from "react-native"
 import { useEffect, useState } from "react"
 import { Ionicons } from "@expo/vector-icons"
 import SelectDropdown from "react-native-select-dropdown"
 
-export default (pros) => {
+export default (props) => {
     const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos"
     const [data, setData] = useState('')
     const [servico, setServico] = useState([])
@@ -11,6 +11,7 @@ export default (pros) => {
     const [cliente, setCliente] = useState([])
     const [clienteId, setClienteId] = useState('')
     const statusPendente = 1
+    let responsePost
 
     const getServico = async () => {
         try {
@@ -41,52 +42,54 @@ export default (pros) => {
 
     json = JSON.stringify({
         data: data,
-        clienteId: clienteId,
-        servicoId: servicoId,
-        statusId: statusPendente,
+        clienteId: Number(clienteId),
+        servicoId: Number(servicoId),
+        statusId: Number(statusPendente),
     })
 
     const cadastraAgendamento = async () => {
         if (data === "" || clienteId === "" || servicoId === "") {
             alert("Por favor, preencha todos os campos.")
         } else {
-            if (isDateValid(data)) {
-                try {
-                    await fetch(URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: json,
-                    })
-                } catch (error) {
-                    console.error(
-                        "🚀 ~ file: index.js:64 ~ postAgendamento ~ console.log(error):",
-                    )
-                } finally {
-                    limpar()
-                }
+            if (!patern.test(data)) {
+                alert("Por favor, preencha a data no padrão dd-mm-aaaa hh:mm")
+                return
+            }
+            try {
+                responsePost = await fetch(URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: json,
+                })
+            } catch (error) {
+                console.error(
+                    "🚀 ~ file: index.js:64 ~ postAgendamento ~ console.log(error):",
+                )
+            } finally {
+                if (responsePost.status === 400) {
+                    alert("Erro ao cadastrar agendamento.")
+                    return
+                } 
+                alert("Agendamento cadastrado com sucesso!")
+                props.navigation.navigate("ListarAgendamento")
             }
         }
-    }
+    }    
 
     function limpar() {
         setData('')
-        setCliente('')
-        setServico('')
     }
 
-    const regex = "^([1-9]|([012][0-9])|(3[01]))-([0]{0,1}[1-9]|1[012])-\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$"
+    const regex = `^(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](202[0-9])[ ](0[0-9]|1[0-9]|2[0123])[:](0[0-9]|[12345][0-9])`
+
     const patern = new RegExp(regex)
-
-    function isDateValid(date) {
-        return patern.test(date);
-    }
     
     function validateServicoId(nomeServico) {
         servico.map((item) => {
-            if (item.nome === nomeServico) {
-                setServicoId(item.id);
+            if (nomeServico.includes(item.nome)) {
+                setServicoId(item.id)
             }
         });
     }
@@ -94,7 +97,7 @@ export default (pros) => {
     function validateClienteId(nomeCliente) {
         cliente.map((item) => {
             if (item.nome === nomeCliente) {
-                setClienteId(item.id);
+                setClienteId(item.id)
             }
         });
     }
@@ -108,11 +111,12 @@ export default (pros) => {
         <>
             <View style={styles.container}>
                 <TextInput style={styles.input}
-                    placeholder='DD-MM-AAAA HH:MM'
+                    placeholder='Data/Hora'
                     value={data}
                     onChangeText={setData}
                     placeholderTextColor={"#fff"}>
                 </TextInput>
+                <Text>Padrão para data: dd-mm-aaaa hh:mm</Text>
                 <SelectDropdown
                     data={cliente.map((item) => item.nome)}
                     onSelect={(selectedItem, index) => {
@@ -120,7 +124,6 @@ export default (pros) => {
                     }}
                     defaultButtonText={"Selecione um cliente"}
                     searchPlaceHolder={"Pesquisar cliente"}
-                    key={cliente.map((item) => item.id)}
                     buttonStyle={{
                         justifyContent: "center",
                         alignItems: "center",
@@ -134,13 +137,12 @@ export default (pros) => {
                     search={true}
                 />
                 <SelectDropdown
-                    data={servico.map((item) => item.nome)}
+                    data={servico.map((item) => item.nome + " - R$" + item.valor)}
                     onSelect={(selectedItem, index) => {
                         validateServicoId(selectedItem)
                     }}
                     defaultButtonText={"Selecione um serviço"}
                     searchPlaceHolder={"Pesquisar serviço"}
-                    key={servico.map((item) => item.id)}
                     buttonStyle={{
                         justifyContent: "center",
                         alignItems: "center",

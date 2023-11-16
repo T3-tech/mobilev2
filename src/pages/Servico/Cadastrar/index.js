@@ -103,7 +103,6 @@ export default (props) => {
                     }}
                     defaultButtonText={"Escolha um profissional"}
                     searchPlaceHolder={"Pesquisar profissional"}
-                    key={profissional.map((item) => item.id)}
                     buttonStyle={{
                         backgroundColor: "#6E6E6E",
                         borderRadius: 5,
