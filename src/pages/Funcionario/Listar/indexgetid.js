@@ -1,9 +1,9 @@
-import { Text, FlatList, View, StyleSheet } from "react-native";
+import { Text, FlatList, View, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 
 export default ({ route }) => {
-    const { id } = route.params;
+    const { id, navigator } = route.params;
     const [profissional, setprofissional] = useState([]);
 
     const getProfissionalPorId = async () => {
@@ -17,6 +17,7 @@ export default ({ route }) => {
 
 
     }
+
     useEffect(() => {
         getProfissionalPorId();
     }, []);
@@ -39,6 +40,7 @@ export default ({ route }) => {
                     </FlatList>
                 </View>
             </View>
+
         </SafeAreaView >
     );
 };

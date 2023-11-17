@@ -103,6 +103,8 @@ export default ({ route }) => {
             } else if (response.status === NO_CONTENT) {
                 alert("EDITADO COM SUCESSO");
                 limpar();
+
+
             }
 
         }

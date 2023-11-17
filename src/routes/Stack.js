@@ -67,7 +67,7 @@ export default function Stack() {
                 <navegacaoStack.Screen
                     name="ListarPorId"
                     component={ListarPorId}
-                    options={{ headerShown: false }}
+                    options={{ title: "Detalhe Funcionario" }}
                 />
                 <navegacaoStack.Screen
                     name="EditarAgendamento"
