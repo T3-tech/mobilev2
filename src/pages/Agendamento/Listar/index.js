@@ -98,20 +98,39 @@ export default (props) => {
                             keyExtractor={({ id }) => id}
                             renderItem={({ item }) => (
                                 <View style={styles.listAgendamento}>
-                                    <Text style={{ textAlign: "center"}}>
-                                        {item.statusNome}
-                                    </Text>
-                                    <Text>
-                                        {item.servicoNome}
-                                    </Text>
-                                    <Text>
-                                        {item.clienteNome} - {item.data}
-                                    </Text>
                                     <View style={styles.ViewIcon}>
-                                        <Text>
-                                            Profissional:{" "}{item.profissionalNome}
-                                        </Text>
-                                        <View style={styles.ViewIcon}>
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                props.navigation.navigate(
+                                                    "StatusPorId",
+                                                    {
+                                                        id: item.id,
+                                                        clienteId: item.clienteId,
+                                                        servicoId: item.servicoId,
+                                                        data: item.data,
+                                                        clienteNome: item.clienteNome,
+                                                        servicoNome: item.servicoNome,
+                                                        statusId: item.statusId,
+                                                        statusNome: item.statusNome,
+                                                        navigator: props.navigation,
+                                                    }
+                                                )
+                                            }
+                                        >
+                                            <Text style={{ textAlign: "center"}}>
+                                                {item.statusNome}
+                                            </Text>
+                                            <Text>
+                                                {item.servicoNome}
+                                            </Text>
+                                            <Text>
+                                                {item.clienteNome} - {item.data}
+                                            </Text>
+                                            <Text>
+                                                Profissional:{" "}{item.profissionalNome}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <View>
                                             <Ionicons
                                                 name="create-outline"
                                                 size={25}
@@ -170,16 +189,7 @@ export default (props) => {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        backgroundColor: "#000",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 50,
-    },
-    texto: {
-        color: "#fff",
-        fontSize: 20,
-    },
+
     agendamentoContainer: {
         flex: 1,
         justifyContent: "center",

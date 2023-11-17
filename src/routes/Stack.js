@@ -11,8 +11,8 @@ import EditarProfissional from "../pages/Funcionario/Editar";
 import CadastrarCliente from "../pages/Cliente/Cadastrar";
 import EditarCliente from "../pages/Cliente/Editar";
 import EditarAgendamento from "../pages/Agendamento/Editar";
-
 import ListarPorId from "../pages/Funcionario/Listar/indexgetid";
+import statusPorId from "../pages/Agendamento/Listar/statusPorId";
 const navegacaoStack = createNativeStackNavigator();
 
 export default function Stack() {
@@ -67,12 +67,17 @@ export default function Stack() {
                 <navegacaoStack.Screen
                     name="ListarPorId"
                     component={ListarPorId}
-                    options={{ headerShown: false }}
+                    options={{ title: "Detalhe Funcionario" }}
                 />
                 <navegacaoStack.Screen
                     name="EditarAgendamento"
                     component={EditarAgendamento}
                     options={{ title: "Editar Agendamento" }}
+                />
+                <navegacaoStack.Screen
+                    name="StatusPorId"
+                    component={statusPorId}
+                    options={{ title: "Editar Status" }}
                 />
             </navegacaoStack.Navigator>
         </NavigationContainer>

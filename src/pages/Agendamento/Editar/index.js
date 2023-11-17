@@ -48,8 +48,6 @@ export default ({ route }) => {
         statusId: Number(statusId),
     })
 
-    console.log(json)
-
     const editarAgendamento = async () => {
         try {
             responsePut = await fetch(
@@ -62,8 +60,6 @@ export default ({ route }) => {
                     body: json,
                 }
             );
-            console.log(responsePut.body)
-            console.log(responsePut.status)
         } catch (error) {
             console.error(
                 "🚀 ~ file: index.js:65 ~ editAgendamento ~ console.log(error):"
@@ -86,7 +82,6 @@ export default ({ route }) => {
         servico.map((item) => {
             if (nomeServico.includes(item.nome)) {
                 setServicoId(item.id)
-                console.log(item.id)
             }
         });
     }
@@ -95,8 +90,6 @@ export default ({ route }) => {
         cliente.map((item) => {
             if (item.nome === nomeCliente) {
                 setClienteId(item.id)
-                console.log(item.id)
-
             }
         });
     }
