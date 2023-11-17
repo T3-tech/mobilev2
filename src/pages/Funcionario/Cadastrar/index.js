@@ -2,7 +2,7 @@ import { Text, TextInput, View, StyleSheet, TouchableOpacity, SafeAreaView } fro
 import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-export default (pros) => {
+export default (props) => {
     const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Profissionais";
     const [nome, setNome] = useState('');
     const [cpf, setCpf] = useState('');
@@ -99,7 +99,8 @@ export default (pros) => {
                 alert("CPF JÁ CADASTRADO");
             } else if (response.status == SUCESSO) {
                 alert("FUNCIONÁRIO CADASTRADO COM SUCESSO");
-                limpar();
+                props.navigation.navigate("ListaFuncionario")
+
             }
 
         }

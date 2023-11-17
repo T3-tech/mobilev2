@@ -74,10 +74,8 @@ export default (props) => {
                                                     onPress={() =>
                                                         props.navigation.navigate(
                                                             "ListarPorId", {
-                                                            id: item.id,
-                                                            nome: item.nome,
-                                                            cpf: item.cpf,
-                                                            telefone: item.telefone
+                                                            id: item.id
+
                                                         })}>
 
                                                     <Text style={styles.textStyle}>
@@ -103,6 +101,7 @@ export default (props) => {
                                                             nome: item.nome,
                                                             telefone: item.telefone,
                                                             cpf: item.cpf
+
 
                                                         })}
 
