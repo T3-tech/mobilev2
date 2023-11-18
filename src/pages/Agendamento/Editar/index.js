@@ -49,7 +49,14 @@ export default ({ route }) => {
     })
 
     const editarAgendamento = async () => {
-        try {
+        if (dataAgendamento === "" || idCliente === "" || idServico === "") {
+            alert("Por favor, preencha todos os campos.")
+        } else {
+            if (!patern.test(data)) {
+                alert("Por favor, preencha a data no padrão dd-mm-aaaa hh:mm")
+                return
+            }
+            try {
             responsePut = await fetch(
                 `https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Agendamentos/${id}`,
                 {
@@ -60,17 +67,18 @@ export default ({ route }) => {
                     body: json,
                 }
             );
-        } catch (error) {
-            console.error(
-                "🚀 ~ file: index.js:65 ~ editAgendamento ~ console.log(error):"
-            )
-        } finally {
-            if (responsePut.status === 400) {
-                alert("Erro ao editar agendamento.")
-                return
-            } 
-            alert("Agendamento editado com sucesso!")
-            navigator.navigate("ListarAgendamento")
+            } catch (error) {
+                console.error(
+                    "🚀 ~ file: index.js:65 ~ editAgendamento ~ console.log(error):"
+                )
+            } finally {
+                if (responsePut.status === 400) {
+                    alert("Erro ao editar agendamento.")
+                    return
+                } 
+                alert("Agendamento editado com sucesso!")
+                navigator.navigate("ListarAgendamento")
+            }
         }
     }
 
@@ -188,5 +196,5 @@ const styles = StyleSheet.create({
     textoInput: {
         fontSize: 15,
         fontWeight: "bold",
-    },
+    }
 })
