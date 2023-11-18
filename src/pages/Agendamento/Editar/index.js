@@ -52,7 +52,7 @@ export default ({ route }) => {
         if (dataAgendamento === "" || idCliente === "" || idServico === "") {
             alert("Por favor, preencha todos os campos.")
         } else {
-            if (!patern.test(data)) {
+            if (!patern.test(dataAgendamento)) {
                 alert("Por favor, preencha a data no padrão dd-mm-aaaa hh:mm")
                 return
             }
@@ -82,7 +82,7 @@ export default ({ route }) => {
         }
     }
 
-    const regex = `^(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](202[0-9])[ ](0[0-9]|1[0-9]|2[0123])[:](0[0-9]|[12345][0-9])`
+    const regex = `^(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](202[0-9])[ ](0[0-9]|1[0-9]|2[0123])[:](0[0-9]|[60][0-9])`
 
     const patern = new RegExp(regex)
     
