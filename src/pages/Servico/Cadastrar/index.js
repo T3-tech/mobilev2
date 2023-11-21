@@ -20,7 +20,7 @@ export default (props) => {
             setProfissional(json);
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):"
+                "🚀 ~ file: index.js:23 ~ getProfissional ~ console.log(error):"
             );
         }
     };
@@ -45,7 +45,7 @@ export default (props) => {
             );
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):"
+                "🚀 ~ file: index.js:48 ~ criarServico ~ console.log(error):"
             );
         } finally {
             if (responsePost.status == STATUS_OK) {
@@ -111,7 +111,7 @@ export default (props) => {
                         justifyContent: "center",
                         alignItems: "center",
                     }}
-                    buttonTextStyle={{color: "#FFF"}}
+                    buttonTextStyle={{ color: "#FFF" }}
                     search={true}
                 />
             </View>
