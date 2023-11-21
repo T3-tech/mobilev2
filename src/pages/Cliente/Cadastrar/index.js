@@ -1,27 +1,23 @@
-import { Text, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+    Text,
+    TextInput,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+} from "react-native";
 import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 export default (props) => {
     const URL = "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Clientes";
-    const [nome, setNome] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [telefone, setTelefone] = useState('');
-
-    const attNome = (text) => {
-        setNome(text);
-    }
-    const attCpf = (text) => {
-        setCpf(text);
-    }
-    const attTelefone = (text) => {
-        setTelefone(text);
-    }
+    const [nome, setNome] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [telefone, setTelefone] = useState("");
 
     function limpar() {
-        setNome('');
-        setCpf('');
-        setTelefone('');
+        setNome("");
+        setCpf("");
+        setTelefone("");
     }
 
     function enviar() {
@@ -31,7 +27,7 @@ export default (props) => {
             const cliente = {
                 nome: nome,
                 cpf: cpf,
-                telefone: telefone
+                telefone: telefone,
             };
             cadastrarCliente(cliente);
         }
@@ -40,9 +36,9 @@ export default (props) => {
     const cadastrarCliente = async (cliente) => {
         try {
             const response = await fetch(URL, {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(cliente),
             });
@@ -50,22 +46,24 @@ export default (props) => {
                 alert("Cliente cadastrado com sucesso!");
                 limpar();
             } else {
-                alert("Erro ao cadastrar o cliente. Por favor, tente novamente.");
+                alert(
+                    "Erro ao cadastrar o cliente. Por favor, tente novamente."
+                );
             }
         } catch (error) {
             console.error("Erro:", error);
             alert("Erro ao cadastrar o cliente. Por favor, tente novamente.");
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.formContainer}>
                 <TextInput
                     style={[styles.inputStyle, styles.blackBorder]}
-                    placeholder='Nome do Cliente'
+                    placeholder="Nome do Cliente"
                     value={nome}
-                    onChangeText={attNome}
+                    onChangeText={setNome}
                     placeholderTextColor="#000"
                 />
 
@@ -73,7 +71,7 @@ export default (props) => {
                     style={[styles.inputStyle, styles.blackBorder]}
                     placeholder="Cpf do Cliente"
                     value={cpf}
-                    onChangeText={attCpf}
+                    onChangeText={setCpf}
                     placeholderTextColor="#000"
                 />
 
@@ -81,7 +79,7 @@ export default (props) => {
                     style={[styles.inputStyle, styles.blackBorder]}
                     placeholder="Telefone do Cliente"
                     value={telefone}
-                    onChangeText={attTelefone}
+                    onChangeText={setTelefone}
                     placeholderTextColor="#000"
                 />
             </View>
@@ -90,7 +88,11 @@ export default (props) => {
                     style={[styles.button, styles.greenButton]}
                     onPress={() => enviar()}
                 >
-                    <Ionicons name="checkmark-circle-outline" size={30} color="white" />
+                    <Ionicons
+                        name="checkmark-circle-outline"
+                        size={30}
+                        color="white"
+                    />
                 </TouchableOpacity>
             </View>
         </View>
