@@ -3,8 +3,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 
 export default ({ route }) => {
-    const { id, navigator } = route.params;
-    const [profissional, setprofissional] = useState([]);
+    const { id } = route.params;
+    const [profissional, setprofissional] = useState('');
 
     const getProfissionalPorId = async () => {
 
