@@ -1,7 +1,13 @@
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
+import {
+    Text,
+    TextInput,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    SafeAreaView,
+} from "react-native";
 import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-
 
 export default ({ route }) => {
     const { id, nome, telefone, cpf } = route.params;
@@ -13,24 +19,14 @@ export default ({ route }) => {
     const NO_CONTENT = 204;
     let response;
 
-    const atualizaNome = (text) => {
-        setNomeProfissional(text);
-    }
-    const atualizaCpf = (text) => {
-        setCpfProfissional(text);
-    }
-    const atualizaTelefone = (text) => {
-        setTelefoneProfissional(text);
-    }
-
     function limpar() {
-        setNomeProfissional('');
-        setCpfProfissional('');
-        setTelefoneProfissional('');
+        setNomeProfissional("");
+        setCpfProfissional("");
+        setTelefoneProfissional("");
     }
 
     function validarCPF(cpf) {
-        cpf = cpf.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+        cpf = cpf.replace(/[^\d]/g, ""); // Remove caracteres não numéricos
 
         if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
             return false; // Verifica se o CPF tem 11 dígitos e não é uma sequência de números repetidos
@@ -59,43 +55,48 @@ export default ({ route }) => {
         }
 
         // Verifica se os dígitos verificadores calculados correspondem aos dígitos do CPF
-        if (parseInt(cpf.charAt(9)) === digito1 && parseInt(cpf.charAt(10)) === digito2) {
+        if (
+            parseInt(cpf.charAt(9)) === digito1 &&
+            parseInt(cpf.charAt(10)) === digito2
+        ) {
             return true;
         } else {
             return false;
         }
     }
 
-
     function enviar() {
-        if (nomeProfissional == "" || cpfProfissional == "" || telefoneProfissional == "") {
+        if (
+            nomeProfissional == "" ||
+            cpfProfissional == "" ||
+            telefoneProfissional == ""
+        ) {
             alert("Checar se alguma informação está nula");
         }
         if (!validarCPF(cpfProfissional)) {
-            alert("CPF com padrão incorreto")
+            alert("CPF com padrão incorreto");
         } else {
             const profissional = {
                 nome: nomeProfissional,
                 cpf: cpfProfissional,
-                telefone: telefoneProfissional
+                telefone: telefoneProfissional,
             };
             editarProfissional(profissional);
         }
-
     }
 
     const editarProfissional = async (profissional) => {
         try {
             response = await fetch(URL, {
-                method: 'PUT',
+                method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(profissional),
-            })
+            });
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:98 ~ putProfissional ~ console.log(error):",
+                "🚀 ~ file: index.js:98 ~ putProfissional ~ console.log(error):"
             );
         } finally {
             if (response.status == BAD_REQUEST) {
@@ -103,46 +104,40 @@ export default ({ route }) => {
             } else if (response.status === NO_CONTENT) {
                 alert("EDITADO COM SUCESSO");
                 limpar();
-
-
             }
-
         }
-
-    }
-
-
+    };
 
     return (
-
         <SafeAreaView>
-            <View >
+            <View>
                 <View style={styles.containerInterno}>
-                    <TextInput style={styles.inputStyle}
-                        placeholder='Nome'
-                        onChangeText={atualizaNome}
+                    <TextInput
+                        style={styles.inputStyle}
+                        placeholder="Nome"
+                        onChangeText={setNomeProfissional}
                         value={nomeProfissional}
                         defaultValue={nomeProfissional}
-                        placeholderTextColor={"#fff"}>
-                    </TextInput>
+                        placeholderTextColor={"#fff"}
+                    ></TextInput>
 
-                    <TextInput style={styles.inputStyle}
+                    <TextInput
+                        style={styles.inputStyle}
                         placeholder="Cpf"
-                        onChangeText={atualizaCpf}
+                        onChangeText={setCpfProfissional}
                         value={cpfProfissional}
                         defaultValue={cpfProfissional}
-                        placeholderTextColor={"#fff"}>
-                    </TextInput>
+                        placeholderTextColor={"#fff"}
+                    ></TextInput>
 
-                    <TextInput style={styles.inputStyle}
+                    <TextInput
+                        style={styles.inputStyle}
                         placeholder="Telefone"
-                        onChangeText={atualizaTelefone}
+                        onChangeText={setTelefoneProfissional}
                         value={telefoneProfissional}
                         defaultValue={telefoneProfissional}
-                        placeholderTextColor={"#fff"}>
-
-
-                    </TextInput>
+                        placeholderTextColor={"#fff"}
+                    ></TextInput>
                 </View>
 
                 <View style={styles.viewIcon}>
@@ -163,17 +158,12 @@ export default ({ route }) => {
                         />
                     </View>
                 </View>
-
             </View>
         </SafeAreaView>
     );
-
-
-
 };
 
 const styles = StyleSheet.create({
-
     inputStyle: {
         margin: 10,
         padding: 10,
@@ -183,14 +173,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: "center",
         alignItems: "center",
-
-
     },
 
     containerInterno: {
         justifyContent: "center",
         alignItems: "center",
-        margin: 50
+        margin: 50,
     },
     botao: {
         width: 230,
@@ -198,15 +186,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 25,
         borderColor: "#000",
-        marginTop: 50
-
+        marginTop: 50,
     },
     viewIcon: {
         marginTop: 20,
         flexDirection: "row",
         justifyContent: "space-around",
-    }
-
-
-
+    },
 });
