@@ -23,7 +23,7 @@ export default ({ route }) => {
             setStatus(json)
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:38 ~ getStatus ~ console.log(error):",
+                "🚀 ~ file: index.js:26 ~ getStatus ~ console.log(error):",
             );
         }
     }
@@ -51,7 +51,7 @@ export default ({ route }) => {
             console.log(responsePut.status)
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:65 ~ editAgendamento ~ console.log(error):"
+                "🚀 ~ file: index.js:54 ~ editAgendamento ~ console.log(error):"
             )
         } finally {
             if (responsePut.status === 400) {

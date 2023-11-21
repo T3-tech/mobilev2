@@ -26,7 +26,7 @@ export default (props) => {
 
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):",
+                "🚀 ~ file: index.js:29 ~ getAgendamento ~ console.log(error):",
             );
         } finally {
             setIsLoading(false)
@@ -40,7 +40,7 @@ export default (props) => {
             });
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:47 ~ deleteAgentamento ~ console.log(error):"
+                "🚀 ~ file: index.js:43 ~ deleteAgentamento ~ console.log(error):"
             );
         } finally {
             getAgendamento();

@@ -30,7 +30,7 @@ export default ({ route }) => {
             setCliente(json);
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:24 ~ getCliente ~ console.log(error):"
+                "🚀 ~ file: index.js:33 ~ getCliente ~ console.log(error):"
             );
         }
     };
@@ -44,7 +44,7 @@ export default ({ route }) => {
             setServico(json);
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:38 ~ getServico ~ console.log(error):"
+                "🚀 ~ file: index.js:47 ~ getServico ~ console.log(error):"
             );
         }
     };
@@ -77,7 +77,7 @@ export default ({ route }) => {
                 );
             } catch (error) {
                 console.error(
-                    "🚀 ~ file: index.js:65 ~ editAgendamento ~ console.log(error):"
+                    "🚀 ~ file: index.js:80 ~ editAgendamento ~ console.log(error):"
                 );
             } finally {
                 if (responsePut.status === 400) {

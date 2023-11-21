@@ -22,7 +22,7 @@ export default (props) => {
             setServico(json)
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:24 ~ getServico ~ console.log(error):",
+                "🚀 ~ file: index.js:25 ~ getServico ~ console.log(error):",
             )
         }
     }
@@ -35,7 +35,7 @@ export default (props) => {
         } 
         catch (error) {
             console.error(
-                "🚀 ~ file: index.js:37 ~ getCliente ~ console.log(error):",
+                "🚀 ~ file: index.js:38 ~ getCliente ~ console.log(error):",
             )
         }
     }
@@ -65,7 +65,7 @@ export default (props) => {
                 })
             } catch (error) {
                 console.error(
-                    "🚀 ~ file: index.js:64 ~ postAgendamento ~ console.log(error):",
+                    "🚀 ~ file: index.js:68 ~ postAgendamento ~ console.log(error):",
                 )
             } finally {
                 if (responsePost.status === 400) {
