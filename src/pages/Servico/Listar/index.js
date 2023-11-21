@@ -22,7 +22,7 @@ export default (props) => {
             setServico(json);
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):"
+                "🚀 ~ file: index.js:25 ~ getServico ~ console.log(error):"
             );
         } finally {
             setIsLoading(false);
@@ -36,7 +36,7 @@ export default (props) => {
             });
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):"
+                "🚀 ~ file: index.js:39 ~ deteleServico ~ console.log(error):"
             );
         } finally {
             getServico();

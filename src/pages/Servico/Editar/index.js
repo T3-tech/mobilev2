@@ -21,7 +21,7 @@ export default ({ route }) => {
             setProfissional(json);
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):"
+                "🚀 ~ file: index.js:24 ~ getProfissional ~ console.log(error):"
             );
         }
     };
@@ -46,7 +46,7 @@ export default ({ route }) => {
             );
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:32 ~ getAgendamento ~ console.log(error):"
+                "🚀 ~ file: index.js:49 ~ editServico ~ console.log(error):"
             );
         } finally {
             if (responsePut.status !== NO_CONTENT) {
@@ -116,7 +116,7 @@ export default ({ route }) => {
                         justifyContent: "center",
                         alignItems: "center",
                     }}
-                    buttonTextStyle={{color: "#FFF"}}
+                    buttonTextStyle={{ color: "#FFF" }}
                 />
             </View>
 
