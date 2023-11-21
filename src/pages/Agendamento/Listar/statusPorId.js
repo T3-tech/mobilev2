@@ -1,39 +1,49 @@
-import { useEffect, useState } from "react"
-import { StyleSheet, Text, View } from "react-native"
-import SelectDropdown from "react-native-select-dropdown"
-import { Ionicons } from "@expo/vector-icons"
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import SelectDropdown from "react-native-select-dropdown";
+import { Ionicons } from "@expo/vector-icons";
 
 export default ({ route }) => {
-    const { id, data, servicoNome, clienteNome, clienteId, servicoId ,statusNome, statusId, navigator } = route.params
-    const [dataAgendamento, setDataAgendamento] = useState(data)
-    const [status, setStatus] = useState([])
-    const [idStatus, setIdStatus] = useState(statusId)
-    const [servico, setServico] = useState([])
-    const [idServico, setServicoId] = useState(servicoId)
-    const [cliente, setCliente] = useState([])
-    const [idCliente, setClienteId] = useState(clienteId)
-    let responsePut
+    const {
+        id,
+        data,
+        servicoNome,
+        clienteNome,
+        clienteId,
+        servicoId,
+        statusNome,
+        statusId,
+        navigator,
+    } = route.params;
+    const [dataAgendamento, setDataAgendamento] = useState(data);
+    const [status, setStatus] = useState([]);
+    const [idStatus, setIdStatus] = useState(statusId);
+    const [servico, setServico] = useState([]);
+    const [idServico, setServicoId] = useState(servicoId);
+    const [cliente, setCliente] = useState([]);
+    const [idCliente, setClienteId] = useState(clienteId);
+    let responsePut;
 
     const getStatus = async () => {
         try {
             const response = await fetch(
                 "https://agendamento-api-dev-btxz.3.us-1.fl0.io/api/Status"
-            )
-            const json = await response.json()
-            setStatus(json)
+            );
+            const json = await response.json();
+            setStatus(json);
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:26 ~ getStatus ~ console.log(error):",
+                "🚀 ~ file: index.js:26 ~ getStatus ~ console.log(error):"
             );
         }
-    }
+    };
 
     json = JSON.stringify({
         data: dataAgendamento,
         clienteId: Number(idCliente),
         servicoId: Number(idServico),
         statusId: Number(idStatus),
-    })
+    });
 
     const editarStatus = async () => {
         try {
@@ -47,33 +57,31 @@ export default ({ route }) => {
                     body: json,
                 }
             );
-            console.log(responsePut.body)
-            console.log(responsePut.status)
         } catch (error) {
             console.error(
-                "🚀 ~ file: index.js:54 ~ editAgendamento ~ console.log(error):"
-            )
+                "🚀 ~ file: index.js:62 ~ editAgendamento ~ console.log(error):"
+            );
         } finally {
             if (responsePut.status === 400) {
-                alert("Erro ao editar agendamento.")
-                return
-            } 
-            alert("Status editado com sucesso!")
-            navigator.navigate("ListarAgendamento")
+                alert("Erro ao editar agendamento.");
+                return;
+            }
+            alert("Status editado com sucesso!");
+            navigator.navigate("ListarAgendamento");
         }
-    }
+    };
 
     function validateStatusId(nomeStatus) {
         status.map((item) => {
             if (item.nome === nomeStatus) {
-                setIdStatus(item.id)
+                setIdStatus(item.id);
             }
         });
     }
 
     useEffect(() => {
-        getStatus()
-    })
+        getStatus();
+    }, []);
 
     return (
         <>
@@ -88,7 +96,7 @@ export default ({ route }) => {
                 <SelectDropdown
                     data={status.map((item) => item.nome)}
                     onSelect={(selectedItem, index) => {
-                        validateStatusId(selectedItem)
+                        validateStatusId(selectedItem);
                     }}
                     defaultButtonText={statusNome}
                     searchPlaceHolder={"Pesquisar status"}
@@ -101,7 +109,7 @@ export default ({ route }) => {
                         borderRadius: 5,
                         backgroundColor: "#6E6E6E",
                     }}
-                    buttonTextStyle={{color: "#FFF"}}
+                    buttonTextStyle={{ color: "#FFF" }}
                     search={true}
                 />
             </View>
@@ -114,8 +122,8 @@ export default ({ route }) => {
                 />
             </View>
         </>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -132,7 +140,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     titulo: {
-        fontSize: 25
+        fontSize: 25,
     },
     input: {
         margin: 10,
@@ -142,7 +150,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#6E6E6E",
         borderRadius: 5,
         justifyContent: "center",
-        textAlign:'center',
+        textAlign: "center",
     },
     viewButton: {
         flex: 1,
@@ -150,4 +158,4 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
     },
-})
+});
