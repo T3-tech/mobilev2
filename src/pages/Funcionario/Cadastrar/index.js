@@ -10,15 +10,6 @@ export default (props) => {
     const BAD_REQUEST = 400;
     const SUCESSO = 200;
     let response;
-    const atualizaNome = (text) => {
-        setNome(text);
-    }
-    const atualizaCpf = (text) => {
-        setCpf(text);
-    }
-    const atualizaTelefone = (text) => {
-        setTelefone(text);
-    }
 
     function limpar() {
         setNome('');
@@ -118,21 +109,21 @@ export default (props) => {
                     <TextInput style={styles.inputStyle}
                         placeholder='Nome'
                         value={nome}
-                        onChangeText={atualizaNome}
+                        onChangeText={setNome}
                         placeholderTextColor={"#fff"}>
                     </TextInput>
 
                     <TextInput style={styles.inputStyle}
                         placeholder="Cpf"
                         value={cpf}
-                        onChangeText={atualizaCpf}
+                        onChangeText={setCpf}
                         placeholderTextColor={"#fff"}>
                     </TextInput>
 
                     <TextInput style={styles.inputStyle}
                         placeholder="Telefone"
                         value={telefone}
-                        onChangeText={atualizaTelefone}
+                        onChangeText={setTelefone}
                         placeholderTextColor={"#fff"}>
                     </TextInput>
                 </View>
